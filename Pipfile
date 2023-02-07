@@ -1,0 +1,13 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+sdbus = "*"
+
+[dev-packages]
+yapf = "*"
+flake8 = "*"
+pyinstaller = "*"
+ipython = "*"
