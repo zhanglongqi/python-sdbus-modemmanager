@@ -1,10 +1,9 @@
-from re import M
 from typing import List, Optional, Dict
 from sdbus.sd_bus_internals import SdBus
 from interfaces_root import MMInterface
 from interfaces_modem import MMModemInterface, MMModemSimpleInterface, MMModemsInterface, MMModemSingalInterface
 from interfaces_sim import MMSimInterface
-from sdbus_block.modemmanager.interfaces_bearer import MMBearerInterface
+from interfaces_bearer import MMBearerInterface
 
 MODEM_MANAGER_SERVICE_NAME = 'org.freedesktop.ModemManager1'
 
