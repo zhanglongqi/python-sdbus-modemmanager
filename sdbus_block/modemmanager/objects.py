@@ -43,18 +43,18 @@ class MMModemSimple(MMModemSimpleInterface):
 
 class MMModem(MMModemInterface):
 
-	def __init__(self,
-					object_path: str,
-					bus: Optional[SdBus] = None,
-					simple_object_path: str = 'org.freedesktop.ModemManager1.Modem.Simple',
-					signal_object_path: str = 'org.freedesktop.ModemManager1.Modem.Signal') -> None:
+	def __init__(
+		self,
+		object_path: str,
+		bus: Optional[SdBus] = None,
+	) -> None:
 		"""
         :param bus: You probably want to set default bus to system bus \
             or pass system bus directly.
         """
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
-		self.simple = MMModemSimple(object_path=simple_object_path)
-		self.signal = MMModemSignal(object_path=signal_object_path)
+		self.simple = MMModemSimple(object_path=object_path, bus=bus)
+		self.signal = MMModemSignal(object_path=object_path, bus=bus)
 		self.sim: Optional[MMSim] = None
 		self.bearers: List[MMBearer] = []
 
