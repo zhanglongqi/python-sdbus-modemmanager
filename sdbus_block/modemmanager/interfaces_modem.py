@@ -169,7 +169,7 @@ class MMModemInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mode
 class MMModemSimpleInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemManager1.Modem.Simple'):
 
 	@dbus_method(input_signature='a{sv}', result_signature='o')
-	def connect(self, properties: str, bearer: str):
+	def connect(self, properties: str, bearer: Dict[str, Tuple[str, Any]]) -> str:
 		"""
 		Allowed key/value pairs in properties are:
 
@@ -223,7 +223,7 @@ class MMModemSimpleInterface(DbusInterfaceCommon, interface_name='org.freedeskto
 		raise NotImplementedError
 
 	@dbus_method(result_signature='a{sv}')
-	def get_status(self):
+	def get_status(self) -> Dict[str, Tuple[str, Any]]:
 		"""
 		Get the general modem status.
 

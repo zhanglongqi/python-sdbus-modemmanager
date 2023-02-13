@@ -10,14 +10,24 @@ if __name__ == "__main__":
 	mms = MMModems()
 	modem = mms.get_first()
 	if modem:
-		print(f'{modem.state_text=}, {modem.imei=}, {modem.manufacturer=}, {modem.model=}, {modem.hardware_revision=}, '
-				f'{modem.own_numbers=}, {modem.power_state_text=}, {modem.signal_quality=}')
+		print('-------------------------')
+		print(f'{modem.state_text=}\n'
+				f'{modem.imei=}\n'
+				f'{modem.manufacturer=}\n'
+				f'{modem.model=}\n'
+				f'{modem.hardware_revision=}\n'
+				f'{modem.own_numbers=}\n'
+				f'{modem.power_state_text=}\n'
+				f'{modem.signal_quality=}\n')
 
 		if modem.sim_object_path is not None:
 			modem.set_sim(modem.sim_object_path)
 			if modem.sim:
-				print(f'{modem.sim.imsi=}, {modem.sim.sim_identifier=}, {modem.sim.operator_name=}, '
-						f'{modem.sim.operator_identifier=}')
+				print('-------------------------')
+				print(f'{modem.sim.imsi=}\n'
+						f'{modem.sim.sim_identifier=}\n'
+						f'{modem.sim.operator_name=}\n'
+						f'{modem.sim.operator_identifier=}\n')
 			else:
 				print(f'failed to get sim object {modem.sim_object_path=}')
 		else:

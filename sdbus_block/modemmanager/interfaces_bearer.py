@@ -1,6 +1,5 @@
-from typing import Tuple
+from typing import Any, Dict, List, Tuple
 from sdbus import DbusInterfaceCommon, dbus_method, dbus_property
-
 
 
 class MMBearerInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemManager1.Bearer'):
@@ -61,7 +60,6 @@ class MMBearerInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mod
 		"""
 		raise NotImplementedError
 
-
 	@dbus_property('a{sv}')
 	def ip4_config(self) -> Tuple[str]:
 		"""
@@ -97,4 +95,8 @@ class MMBearerInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mod
 			Maximum transmission unit (MTU), given as an unsigned integer value (signature "u").
 
 		"""
+		raise NotImplementedError
+
+	@dbus_property(property_signature='a{sv}')
+	def stats(self) -> Dict[str, Tuple[str, Any]]:
 		raise NotImplementedError
