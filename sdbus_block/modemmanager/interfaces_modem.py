@@ -1,8 +1,8 @@
-from typing import Any, Dict, List, Tuple, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from sdbus import DbusInterfaceCommon, DbusObjectManagerInterface, dbus_method, dbus_property
 
-from .enums import MMModemState, MMModemPowerState
+from .enums import MMModemPowerState, MMModemState
 
 
 class MMModemsInterface(DbusObjectManagerInterface):
@@ -277,4 +277,57 @@ class MMModemSingalInterface(DbusInterfaceCommon, interface_name='org.freedeskto
 		Returns:
 			int: _description_
 		"""
+		raise NotImplementedError
+
+
+class MMModemVoiceInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemManager1.Modem.Voice'):
+
+	@dbus_method(result_signature='ao')
+	def list_calls(self) -> List[str]:
+		"""
+		Retrieve all Calls.
+
+		OUT ao result:
+			The list of call object paths.
+
+		Returns:
+			list[str]: _description_
+		"""
+		raise NotImplementedError
+
+	@dbus_method(input_signature='o')
+	def delete_call(self, path: str) -> None:
+		"""
+		Delete a Call from the list of calls.
+		The call will be hangup if it is still active.
+
+		IN o path:
+			The object path of the Call to delete.
+
+		Args:
+			path (str): _description_
+		"""
+		raise NotImplementedError
+
+	@dbus_method(input_signature='a{sv}')
+	def create_call(self, properties: Dict[str, str]) -> str:
+		"""
+		Creates a new call object for a new outgoing call.
+		The 'Number' is the only expected property to set by the user.
+
+		IN a{sv} properties:
+			Call properties from the Call D-Bus interface.
+
+		OUT o path:
+			The object path of the new call object.
+
+		Args:
+			properties (dict[str, str]): Call properties from the Call D-Bus interface.
+		Returns:
+			str: The object path of the new call object.
+		"""
+		raise NotImplementedError
+
+	@dbus_property('o', property_name='Calls')
+	def call_object_paths(self) -> List[str]:
 		raise NotImplementedError
