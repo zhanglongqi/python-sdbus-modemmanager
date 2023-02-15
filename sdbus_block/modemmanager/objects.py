@@ -4,6 +4,8 @@ from .interfaces_root import MMInterface
 from .interfaces_modem import MMModemInterface, MMModemSimpleInterface, MMModemsInterface, MMModemSingalInterface
 from .interfaces_sim import MMSimInterface
 from .interfaces_bearer import MMBearerInterface
+from .interfaces_call import MMCallInterface
+from .enums import MMCallState, MMCallStateReason, MMCallDirection
 
 MODEM_MANAGER_SERVICE_NAME = 'org.freedesktop.ModemManager1'
 
@@ -39,6 +41,15 @@ class MMModemSimple(MMModemSimpleInterface):
 
 	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+
+
+class MMModemVoice(MMModemVoiceInterface):
+
+	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
+		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+
+	def get_calls(self):
+		return [MMCall(path) for path in self.call_object_paths]
 
 
 class MMModem(MMModemInterface):
@@ -111,3 +122,41 @@ class MMBearer(MMBearerInterface):
             or pass system bus directly.
         """
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+
+
+class MMCall(MMCallInterface):
+
+	def __init__(
+		self,
+		object_path: str,
+		bus: Optional[SdBus] = None,
+	) -> None:
+		"""
+		:param bus: You probably want to set default bus to system bus \
+			or pass system bus directly.
+        """
+		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+
+	@property
+	def state_text(self) -> str:
+		"""A MMCallState name, describing the state of the call.
+		Returns:
+			str: _description_
+		"""
+		return MMCallState(self.state).name
+
+	@property
+	def state_reason_text(self) -> str:
+		"""A MMCallStateReason name, describing why the state is changed.
+		Returns:
+			str: _description_
+		"""
+		return MMCallStateReason(self.state_reason).name
+
+	@property
+	def direction_text(self) -> str:
+		"""A MMCallDirection name, describing the direction of the call.
+		Returns:
+			str: _description_
+		"""
+		return MMCallDirection(self.direction).name

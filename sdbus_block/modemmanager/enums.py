@@ -2,7 +2,6 @@ from enum import Enum, IntEnum, IntFlag
 
 
 class MMModemState(IntEnum):
-	
 	"""Enumeration of possible modem states.
 	/*< underscore_name=mm_modem_state >*/
 	* MMModemState:
@@ -21,21 +20,22 @@ class MMModemState(IntEnum):
 	* @MM_MODEM_STATE_CONNECTED: One or more packet data bearers is active and connected.
 	*
 	"""
-	MM_MODEM_STATE_FAILED        = -1,
-	MM_MODEM_STATE_UNKNOWN       = 0,
-	MM_MODEM_STATE_INITIALIZING  = 1,
-	MM_MODEM_STATE_LOCKED        = 2,
-	MM_MODEM_STATE_DISABLED      = 3,
-	MM_MODEM_STATE_DISABLING     = 4,
-	MM_MODEM_STATE_ENABLING      = 5,
-	MM_MODEM_STATE_ENABLED       = 6,
-	MM_MODEM_STATE_SEARCHING     = 7,
-	MM_MODEM_STATE_REGISTERED    = 8,
+	MM_MODEM_STATE_FAILED = -1,
+	MM_MODEM_STATE_UNKNOWN = 0,
+	MM_MODEM_STATE_INITIALIZING = 1,
+	MM_MODEM_STATE_LOCKED = 2,
+	MM_MODEM_STATE_DISABLED = 3,
+	MM_MODEM_STATE_DISABLING = 4,
+	MM_MODEM_STATE_ENABLING = 5,
+	MM_MODEM_STATE_ENABLED = 6,
+	MM_MODEM_STATE_SEARCHING = 7,
+	MM_MODEM_STATE_REGISTERED = 8,
 	MM_MODEM_STATE_DISCONNECTING = 9,
-	MM_MODEM_STATE_CONNECTING    = 10,
-	MM_MODEM_STATE_CONNECTED     = 11
+	MM_MODEM_STATE_CONNECTING = 10,
+	MM_MODEM_STATE_CONNECTED = 11
 
-class MMModemMode(IntEnum): 
+
+class MMModemMode(IntEnum):
 	"""
 	/*< underscore_name=mm_modem_mode >*/
 
@@ -48,11 +48,12 @@ class MMModemMode(IntEnum):
 	* @MM_MODEM_MODE_ANY: Any mode can be used (only this value allowed for POTS modems).
 	"""
 	MM_MODEM_MODE_NONE = 0,
-	MM_MODEM_MODE_CS   = 1 << 0,
-	MM_MODEM_MODE_2G   = 1 << 1,
-	MM_MODEM_MODE_3G   = 1 << 2,
-	MM_MODEM_MODE_4G   = 1 << 3,
-	MM_MODEM_MODE_ANY  = 0xFFFFFFFF
+	MM_MODEM_MODE_CS = 1 << 0,
+	MM_MODEM_MODE_2G = 1 << 1,
+	MM_MODEM_MODE_3G = 1 << 2,
+	MM_MODEM_MODE_4G = 1 << 3,
+	MM_MODEM_MODE_ANY = 0xFFFFFFFF
+
 
 class MMModemPowerState(IntEnum):
 	"""_summary_
@@ -67,6 +68,81 @@ class MMModemPowerState(IntEnum):
 		IntEnum (_type_): _description_
 	"""
 	MM_MODEM_POWER_STATE_UNKNOWN = 0,
-	MM_MODEM_POWER_STATE_OFF     = 1,
-	MM_MODEM_POWER_STATE_LOW     = 2,
-	MM_MODEM_POWER_STATE_ON      = 3
+	MM_MODEM_POWER_STATE_OFF = 1,
+	MM_MODEM_POWER_STATE_LOW = 2,
+	MM_MODEM_POWER_STATE_ON = 3
+
+
+class MMCallDirection(IntEnum):
+	"""_summary_
+	/*< underscore_name=mm_call_direction >*/
+	Direction of the call.
+
+	MM_CALL_DIRECTION_UNKNOWN	Unknown.
+	MM_CALL_DIRECTION_INCOMING	Call from network.
+	MM_CALL_DIRECTION_OUTGOING	Call to network.
+	Args:
+		IntEnum (_type_): _description_
+	"""
+
+	MM_CALL_DIRECTION_UNKNOWN = 0,
+	MM_CALL_DIRECTION_INCOMING = 1,
+	MM_CALL_DIRECTION_OUTGOING = 2
+
+
+class MMCallState(IntEnum):
+	"""_summary_
+	/*< underscore_name=mm_call_state >*/
+	State of Call.
+
+	MM_CALL_STATE_UNKNOWN			Default state for a new outgoing call.
+	MM_CALL_STATE_DIALING			Outgoing call started. Wait for free channel.
+	MM_CALL_STATE_RINGING_OUT		Outgoing call attached to GSM network, waiting for an answer.
+	MM_CALL_STATE_RINGING_IN		Incoming call is waiting for an answer.
+	MM_CALL_STATE_ACTIVE			Call is active between two peers.
+	MM_CALL_STATE_HELD				Held call (by +CHLD AT command).
+	MM_CALL_STATE_WAITING			Waiting call (by +CCWA AT command).
+	MM_CALL_STATE_TERMINATED		Call is terminated.
+	Args:
+		IntEnum (_type_): _description_
+	"""
+
+	MM_CALL_STATE_UNKNOWN = 0,
+	MM_CALL_STATE_DIALING = 1,
+	MM_CALL_STATE_RINGING_OUT = 2,
+	MM_CALL_STATE_RINGING_IN = 3,
+	MM_CALL_STATE_ACTIVE = 4,
+	MM_CALL_STATE_HELD = 5,
+	MM_CALL_STATE_WAITING = 6,
+	MM_CALL_STATE_TERMINATED = 7
+
+
+class MMCallStateReason(IntEnum):
+	"""_summary_
+	/*< underscore_name=mm_call_state_reason >*/
+	Reason for the state change in the call.
+
+	MM_CALL_STATE_REASON_UNKNOWN			Default value for a new outgoing call.
+	MM_CALL_STATE_REASON_OUTGOING_STARTED	Outgoing call is started.
+	MM_CALL_STATE_REASON_INCOMING_NEW		Received a new incoming call.
+	MM_CALL_STATE_REASON_ACCEPTED			Dialing or Ringing call is accepted.
+	MM_CALL_STATE_REASON_TERMINATED			Call is correctly terminated.
+	MM_CALL_STATE_REASON_REFUSED_OR_BUSY	Remote peer is busy or refused call.
+	MM_CALL_STATE_REASON_ERROR				Wrong number or generic network error.
+	MM_CALL_STATE_REASON_AUDIO_SETUP_FAILED	Error setting up audio channel. Since 1.10.
+	MM_CALL_STATE_REASON_TRANSFERRED		Call has been transferred. Since 1.12.
+	MM_CALL_STATE_REASON_DEFLECTED			Call has been deflected to a new number. Since 1.12.
+	Args:
+		IntEnum (_type_): _description_
+	"""
+
+	MM_CALL_STATE_REASON_UNKNOWN = 0,
+	MM_CALL_STATE_REASON_OUTGOING_STARTED = 1,
+	MM_CALL_STATE_REASON_INCOMING_NEW = 2,
+	MM_CALL_STATE_REASON_ACCEPTED = 3,
+	MM_CALL_STATE_REASON_TERMINATED = 4,
+	MM_CALL_STATE_REASON_REFUSED_OR_BUSY = 5,
+	MM_CALL_STATE_REASON_ERROR = 6,
+	MM_CALL_STATE_REASON_AUDIO_SETUP_FAILED = 7,
+	MM_CALL_STATE_REASON_TRANSFERRED = 8,
+	MM_CALL_STATE_REASON_DEFLECTED = 9

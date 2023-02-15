@@ -1,4 +1,3 @@
-
 from sdbus import DbusInterfaceCommon, dbus_method, dbus_property
 
 
@@ -79,4 +78,3 @@ class MMSimInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemM
 		The name of the network operator, as given by the SIM card, if known.
 		"""
 		raise NotImplementedError
-

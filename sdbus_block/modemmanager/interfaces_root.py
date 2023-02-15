@@ -31,6 +31,3 @@ class MMInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemMana
 	def version(self) -> str:
 		"""NetworkManager version"""
 		raise NotImplementedError
-
-
-	
