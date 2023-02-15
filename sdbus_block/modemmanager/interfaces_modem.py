@@ -1,8 +1,8 @@
-from typing import Any, Dict, List, Tuple, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from sdbus import DbusInterfaceCommon, DbusObjectManagerInterface, dbus_method, dbus_property
 
-from .enums import MMModemState, MMModemPowerState
+from .enums import MMModemPowerState, MMModemState
 
 
 class MMModemsInterface(DbusObjectManagerInterface):

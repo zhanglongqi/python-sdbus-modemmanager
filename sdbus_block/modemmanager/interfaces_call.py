@@ -1,4 +1,5 @@
 from typing import Any, Dict
+
 from sdbus import DbusInterfaceCommon, dbus_method, dbus_property
 
 

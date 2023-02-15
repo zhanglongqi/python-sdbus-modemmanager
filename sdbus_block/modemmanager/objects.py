@@ -1,11 +1,13 @@
-from typing import List, Optional, Dict
+from typing import Dict, List, Optional
+
 from sdbus.sd_bus_internals import SdBus
-from .interfaces_root import MMInterface
-from .interfaces_modem import MMModemInterface, MMModemSimpleInterface, MMModemsInterface, MMModemSingalInterface
-from .interfaces_sim import MMSimInterface
+
+from .enums import MMCallDirection, MMCallState, MMCallStateReason
 from .interfaces_bearer import MMBearerInterface
 from .interfaces_call import MMCallInterface
-from .enums import MMCallState, MMCallStateReason, MMCallDirection
+from .interfaces_modem import MMModemInterface, MMModemSimpleInterface, MMModemSingalInterface, MMModemsInterface, MMModemVoiceInterface
+from .interfaces_root import MMInterface
+from .interfaces_sim import MMSimInterface
 
 MODEM_MANAGER_SERVICE_NAME = 'org.freedesktop.ModemManager1'
 
@@ -66,6 +68,7 @@ class MMModem(MMModemInterface):
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 		self.simple = MMModemSimple(object_path=object_path, bus=bus)
 		self.signal = MMModemSignal(object_path=object_path, bus=bus)
+		self.voice = MMModemVoice(object_path=object_path, bus=bus)
 		self.sim: Optional[MMSim] = None
 		self.bearers: List[MMBearer] = []
 
