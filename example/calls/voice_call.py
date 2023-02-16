@@ -6,6 +6,7 @@ from sdbus_block.modemmanager import MMCall, MMModems
 
 # Enter your phone number here.
 phone_number = '*************'
+hangup_timeout = 20  # seconds
 
 
 def main():
@@ -33,12 +34,21 @@ def main():
 	print(f'Audio format: {call.audio_format}')
 
 	print('--- Start call ---')
+	start_time = time.monotonic()
 	call.start()
 	while True:
 		time.sleep(1)
 		current_state = call.state_text
 		print(f'Current call state: {current_state}')
+
+		# Call termination check.
 		if current_state == 'MM_CALL_STATE_TERMINATED':
+			break
+
+		# Hangup call.
+		if time.monotonic() - start_time >= hangup_timeout:
+			print('Stopping call, hangup time.')
+			modem.voice.hangup_all()
 			break
 	print('--- Stop call ---')
 
