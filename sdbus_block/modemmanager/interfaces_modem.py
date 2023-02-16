@@ -328,6 +328,68 @@ class MMModemVoiceInterface(DbusInterfaceCommon, interface_name='org.freedesktop
 		"""
 		raise NotImplementedError
 
+	@dbus_method()
+	def hold_and_accept(self) -> None:
+		"""
+		Place all active calls on hold, if any, and accept the next call.
+		"""
+		raise NotImplementedError
+
+	@dbus_method()
+	def hangup_and_accept(self) -> None:
+		"""
+		Hangup all active calls, if any, and accept the next call.
+		"""
+		raise NotImplementedError
+
+	@dbus_method()
+	def hangup_all(self) -> None:
+		"""
+		Hangup all active calls.
+		"""
+		raise NotImplementedError
+
+	@dbus_method()
+	def transfer(self) -> None:
+		"""
+		Join the currently active and held calls together into a single multiparty call, but disconnects from them.
+		"""
+		raise NotImplementedError
+
+	@dbus_method(input_signature='b')
+	def call_waiting_setup(self, enable: bool) -> None:
+		"""Activates or deactivates the call waiting network service, as per 3GPP TS 22.083.
+
+		IN b enable:
+
+		Args:
+			enable (bool): _description_
+		"""
+		raise NotImplementedError
+
+	@dbus_method(result_signature='b')
+	def call_waiting_query(self) -> bool:
+		"""Queries the status of the call waiting network service, as per 3GPP TS 22.083.
+
+		OUT b status:
+
+		Returns:
+			bool: _description_
+		"""
+		raise NotImplementedError
+
 	@dbus_property('o', property_name='Calls')
 	def call_object_paths(self) -> List[str]:
+		"""The list of calls object paths.
+		Returns:
+			list[str]: _description_
+		"""
+		raise NotImplementedError
+
+	@dbus_property('b')
+	def emergency_only(self) -> bool:
+		"""A flag indicating whether emergency calls are the only allowed ones.
+		Returns:
+			bool: _description_
+		"""
 		raise NotImplementedError
