@@ -16,6 +16,7 @@ setup(
         'Programming Language :: Python :: 3 :: Only',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
+    license='LGPL-2.1-or-later',
     packages=['sdbus_block.modemmanager'],
     python_requires='>=3.7',
     install_requires=[
