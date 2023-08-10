@@ -278,6 +278,54 @@ class MMModemSingalInterface(DbusInterfaceCommon, interface_name='org.freedeskto
 			int: _description_
 		"""
 		raise NotImplementedError
+	
+	@dbus_property('a{sv}')
+	def cdma(self) -> Dict[str, Tuple[str, Any]]:
+		"""CDMA-specific signal quality information.
+		Returns:
+			dict[str, tuple[str, Any]]: _description_
+		"""
+		raise NotImplementedError
+	
+	@dbus_property('a{sv}')
+	def evdo(self) -> Dict[str, Tuple[str, Any]]:
+		"""EVDO-specific signal quality information.
+		Returns:
+			dict[str, tuple[str, Any]]: _description_
+		"""
+		raise NotImplementedError
+	
+	@dbus_property('a{sv}')
+	def gsm(self) -> Dict[str, Tuple[str, Any]]:
+		"""GSM-specific signal quality information.
+		Returns:
+			dict[str, tuple[str, Any]]: _description_
+		"""
+		raise NotImplementedError
+
+	@dbus_property('a{sv}')
+	def umts(self) -> Dict[str, Tuple[str, Any]]:
+		"""UMTS-specific signal quality information.
+		Returns:
+			dict[str, tuple[str, Any]]: _description_
+		"""
+		raise NotImplementedError
+	
+	@dbus_property('a{sv}')
+	def lte(self) -> Dict[str, Tuple[str, Any]]:
+		"""LTE-specific signal quality information.
+		Returns:
+			dict[str, tuple[str, Any]]: _description_
+		"""
+		raise NotImplementedError
+	
+	@dbus_property('a{sv}')
+	def nr5g(self) -> Dict[str, Tuple[str, Any]]:
+		"""NR5G-specific signal quality information.
+		Returns:
+			dict[str, tuple[str, Any]]: _description_
+		"""
+		raise NotImplementedError
 
 
 class MMModemVoiceInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemManager1.Modem.Voice'):
