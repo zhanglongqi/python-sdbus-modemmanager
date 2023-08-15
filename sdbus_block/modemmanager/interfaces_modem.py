@@ -281,49 +281,43 @@ class MMModemSingalInterface(DbusInterfaceCommon, interface_name='org.freedeskto
 	
 	@dbus_property('a{sv}')
 	def cdma(self) -> Dict[str, Tuple[str, Any]]:
-		"""CDMA-specific signal quality information.
-		Returns:
-			dict[str, tuple[str, Any]]: _description_
+		"""
+		Dictionary of available signal information for the CDMA1x access technology.
 		"""
 		raise NotImplementedError
 	
 	@dbus_property('a{sv}')
 	def evdo(self) -> Dict[str, Tuple[str, Any]]:
-		"""EVDO-specific signal quality information.
-		Returns:
-			dict[str, tuple[str, Any]]: _description_
+		"""
+		Dictionary of available signal information for the CDMA EV-DO access technology.
 		"""
 		raise NotImplementedError
 	
 	@dbus_property('a{sv}')
 	def gsm(self) -> Dict[str, Tuple[str, Any]]:
-		"""GSM-specific signal quality information.
-		Returns:
-			dict[str, tuple[str, Any]]: _description_
+		"""
+		Dictionary of available signal information for the GSM/GPRS access technology.
 		"""
 		raise NotImplementedError
 
 	@dbus_property('a{sv}')
 	def umts(self) -> Dict[str, Tuple[str, Any]]:
-		"""UMTS-specific signal quality information.
-		Returns:
-			dict[str, tuple[str, Any]]: _description_
+		"""
+		Dictionary of available signal information for the UMTS (WCDMA) access technology.
 		"""
 		raise NotImplementedError
 	
 	@dbus_property('a{sv}')
 	def lte(self) -> Dict[str, Tuple[str, Any]]:
-		"""LTE-specific signal quality information.
-		Returns:
-			dict[str, tuple[str, Any]]: _description_
+		"""
+		Dictionary of available signal information for the LTE access technology.
 		"""
 		raise NotImplementedError
 	
 	@dbus_property('a{sv}')
 	def nr5g(self) -> Dict[str, Tuple[str, Any]]:
-		"""NR5G-specific signal quality information.
-		Returns:
-			dict[str, tuple[str, Any]]: _description_
+		"""
+		Dictionary of available signal information for the 5G access technology.
 		"""
 		raise NotImplementedError
 
