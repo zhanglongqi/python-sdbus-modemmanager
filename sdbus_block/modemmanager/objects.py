@@ -5,9 +5,10 @@ from sdbus.sd_bus_internals import SdBus
 from .enums import MMCallDirection, MMCallState, MMCallStateReason
 from .interfaces_bearer import MMBearerInterface
 from .interfaces_call import MMCallInterface
-from .interfaces_modem import MMModemInterface, MMModemSimpleInterface, MMModemSingalInterface, MMModemsInterface, MMModemVoiceInterface
+from .interfaces_modem import MMModemInterface, MMModemMessagingInterface, MMModemSimpleInterface, MMModemSingalInterface, MMModemsInterface, MMModemVoiceInterface
 from .interfaces_root import MMInterface
 from .interfaces_sim import MMSimInterface
+from .interfaces_sms import MMSmsInterface
 
 MODEM_MANAGER_SERVICE_NAME = 'org.freedesktop.ModemManager1'
 
@@ -27,6 +28,40 @@ class MM(MMInterface):
             or pass system bus directly.
         """
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, '/org/freedesktop/ModemManager1', bus)
+
+
+class MMSms(MMSmsInterface):
+
+	def __init__(
+		self,
+		object_path: str,
+		bus: Optional[SdBus] = None,
+	) -> None:
+		"""
+		:param bus: You probably want to set default bus to system bus \
+		or pass system bus directly.
+		"""
+		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+
+
+class MMModemMessaging(MMModemMessagingInterface):
+
+	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
+		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+
+	def create_sms(self, number: str, text: str = None, data: bytes = None) -> MMSms:
+		"""Creates a new message object."""
+		args = {"number": ("s", number)}
+		if text:
+			args["text"] = ("s", text)
+		elif data:
+			args["data"] = ("ay", data)
+
+		return MMSms(self.create(properties=args))
+
+	def delete_sms(self, sms: MMSms) -> None:
+		"""Delete an SMS message."""
+		self.delete(sms._remote_object_path)
 
 
 class MMModemSignal(MMModemSingalInterface):
@@ -66,6 +101,7 @@ class MMModem(MMModemInterface):
             or pass system bus directly.
         """
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+		self.messaging = MMModemMessaging(object_path=object_path, bus=bus)
 		self.simple = MMModemSimple(object_path=object_path, bus=bus)
 		self.signal = MMModemSignal(object_path=object_path, bus=bus)
 		self.voice = MMModemVoice(object_path=object_path, bus=bus)

@@ -166,6 +166,40 @@ class MMModemInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mode
 		return MMModemPowerState(self.power_state).name
 
 
+class MMModemMessagingInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemManager1.Modem.Messaging'):
+	"""The Messaging interface handles sending SMS messages and notification of new incoming messages."""
+
+	@dbus_method(result_signature='ao')
+	def list(self) -> List[str]:
+		"""Retrieve all SMS messages."""
+		raise NotImplementedError
+
+	@dbus_method(input_signature='o')
+	def delete(self, path: str) -> None:
+		"""Delete an SMS message."""
+		raise NotImplementedError
+
+	@dbus_method(input_signature='a{sv}', result_signature='o')
+	def create(self, properties: Dict[str, Tuple[str, Any]]) -> str:
+		"""Creates a new message object."""
+		raise NotImplementedError
+
+	@dbus_property(property_signature='ao')
+	def messages(self) -> List[str]:
+		"""The list of SMS object paths."""
+		raise NotImplementedError
+
+	@dbus_property(property_signature='au')
+	def supported_storages(self) -> List[int]:
+		"""A list of MMSmsStorage values, specifying the storages supported by this modem for storing and receiving SMS."""
+		raise NotImplementedError
+
+	@dbus_property(property_signature='u')
+	def default_storage(self) -> int:
+		"""A MMSmsStorage value, specifying the storage to be used when receiving or storing SMS."""
+		raise NotImplementedError
+
+
 class MMModemSimpleInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemManager1.Modem.Simple'):
 
 	@dbus_method(input_signature='a{sv}', result_signature='o')
