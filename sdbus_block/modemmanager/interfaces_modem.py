@@ -32,25 +32,18 @@ class MMModemInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mode
 	@dbus_method(input_signature='b')
 	def enable(self, enable: bool = True) -> None:
 		"""
-        Enable or disable the modem.
+		Enable or disable the modem.
 
 		When enabled, the modem's radio is powered on and data sessions, voice calls, location services, and Short Message Service may be available.
-
 		When disabled, the modem enters low-power state and no network-related operations are available.
 
-		IN b enable: TRUE to enable the modem and FALSE to disable it.
-
-        Raises:
-            NotImplementedError: _description_
-        """
+		:param enable: True to enable the modem and False to disable it.
+		"""
 		raise NotImplementedError
 
 	@dbus_property('o', property_name='Sim')
 	def sim_object_path(self) -> str:
-		"""The path of the SIM object available in this device, if any.
-		Returns:
-			str: The path of the SIM object available in this device, if any.
-		"""
+		"""The path of the SIM object available in this device, if any."""
 		raise NotImplementedError
 
 	@dbus_property('o', property_name='Bearers')
@@ -64,30 +57,22 @@ class MMModemInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mode
 
 	@dbus_property('s')
 	def manufacturer(self) -> str:
-		"""
-		The equipment manufacturer, as reported by the modem.
-		"""
+		"""The equipment manufacturer, as reported by the modem."""
 		raise NotImplementedError
 
 	@dbus_property('s')
 	def model(self) -> str:
-		"""
-		The equipment model, as reported by the modem.
-		"""
+		"""The equipment model, as reported by the modem."""
 		raise NotImplementedError
 
 	@dbus_property('s', property_name='Revision')
 	def revision(self) -> str:
-		"""
-		The revision identification of the software, as reported by the modem.
-		"""
+		"""The revision identification of the software, as reported by the modem."""
 		raise NotImplementedError
 
 	@dbus_property('s')
 	def hardware_revision(self) -> str:
-		"""
-		The revision identification of the hardware, as reported by the modem.
-		"""
+		"""The revision identification of the hardware, as reported by the modem."""
 		raise NotImplementedError
 
 	@dbus_property('s')
@@ -103,16 +88,14 @@ class MMModemInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mode
 
 	@dbus_property('s')
 	def primary_port(self) -> str:
-		"""
-		The name of the primary port using to control the modem.
-		"""
+		"""The name of the primary port using to control the modem."""
 		raise NotImplementedError
 
 	@dbus_property('s')
 	def equipment_identifier(self) -> str:
 		"""
 		The identity of the device.
-		This will be the IMEI number for GSM devices and the hex-format ESN/MEID for CDMA devices.		
+		This will be the IMEI number for GSM devices and the hex-format ESN/MEID for CDMA devices.
 		"""
 		raise NotImplementedError
 
@@ -124,7 +107,7 @@ class MMModemInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mode
 	def state(self) -> int:
 		"""
 		Overall state of the modem, given as a MMModemState value.
-		If the device's state cannot be determined, MM_MODEM_STATE_UNKNOWN will be reported.	
+		If the device's state cannot be determined, MM_MODEM_STATE_UNKNOWN will be reported.
 		"""
 		raise NotImplementedError
 
@@ -135,7 +118,8 @@ class MMModemInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mode
 	@dbus_property('u')
 	def state_failed_reason(self):
 		"""
-		Error specifying why the modem is in MM_MODEM_STATE_FAILED state, given as a MMModemStateFailedReason value.
+		Error specifying why the modem is in MM_MODEM_STATE_FAILED state,
+		given as a MMModemStateFailedReason value.
 		"""
 		raise NotImplementedError
 
@@ -149,16 +133,12 @@ class MMModemInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mode
 
 	@dbus_property('as')
 	def own_numbers(self):
-		"""
-		List of numbers (e.g. MSISDN in 3GPP) being currently handled by this modem.
-		"""
+		"""List of numbers (e.g. MSISDN in 3GPP) being currently handled by this modem."""
 		raise NotImplementedError
 
 	@dbus_property('u')
 	def power_state(self):
-		"""
-		A MMModemPowerState value specifying the current power state of the modem.
-		"""
+		"""A MMModemPowerState value specifying the current power state of the modem."""
 		raise NotImplementedError
 
 	@property
@@ -208,41 +188,28 @@ class MMModemSimpleInterface(DbusInterfaceCommon, interface_name='org.freedeskto
 		Allowed key/value pairs in properties are:
 
 		"pin"
-
-		SIM-PIN unlock code, given as a string value (signature "s").
+			SIM-PIN unlock code, given as a string value (signature "s").
 		"operator-id"
-
-		ETSI MCC-MNC of a network to force registration with, given as a string value (signature "s").
+			ETSI MCC-MNC of a network to force registration with, given as a string value (signature "s").
 		"apn"
-
-		For GSM/UMTS and LTE devices the APN to use, given as a string value (signature "s").
+			For GSM/UMTS and LTE devices the APN to use, given as a string value (signature "s").
 		"ip-type"
-
-		For GSM/UMTS and LTE devices the IP addressing type to use, given as a MMBearerIpFamily value (signature "u").
+			For GSM/UMTS and LTE devices the IP addressing type to use, given as a MMBearerIpFamily value (signature "u").
 		"allowed-auth"
-
-		The authentication method to use, given as a MMBearerAllowedAuth value (signature "u"). Optional in 3GPP.
+			The authentication method to use, given as a MMBearerAllowedAuth value (signature "u"). Optional in 3GPP.
 		"user"
-
-		User name (if any) required by the network, given as a string value (signature "s"). Optional in 3GPP.
+			User name (if any) required by the network, given as a string value (signature "s"). Optional in 3GPP.
 		"password"
-
-		Password (if any) required by the network, given as a string value (signature "s"). Optional in 3GPP.
+			Password (if any) required by the network, given as a string value (signature "s"). Optional in 3GPP.
 		"number"
-
-		For POTS devices the number to dial,, given as a string value (signature "s").
+			For POTS devices the number to dial, given as a string value (signature "s").
 		"allow-roaming"
-
-		FALSE to allow only connections to home networks, given as a boolean value (signature "b").
+			False to allow only connections to home networks, given as a boolean value (signature "b").
 		"rm-protocol"
+			For CDMA devices, the protocol of the Rm interface, given as a MMModemCdmaRmProtocol value (signature "u").
 
-		For CDMA devices, the protocol of the Rm interface, given as a MMModemCdmaRmProtocol value (signature "u").
-
-		IN a{sv} properties:
-		Dictionary of properties needed to get the modem connected.
-
-		OUT o bearer:
-		On successful connect, returns the object path of the connected packet data bearer used for the connection attempt.
+		:param properties: Dictionary of properties needed to get the modem connected.
+		:returns: On successful connect, returns the object path of the connected packet data bearer used for the connection attempt.
 		"""
 		raise NotImplementedError
 
@@ -251,8 +218,7 @@ class MMModemSimpleInterface(DbusInterfaceCommon, interface_name='org.freedeskto
 		"""
 		data bearer, while if "/" (ie, no object given) this method will disconnect all active packet data bearers.
 		Disconnect an active packet data connection.
-		IN o bearer:
-			If given this method will disconnect the referenced packet
+		:param bearer: If given this method will disconnect the referenced packet
 		"""
 		raise NotImplementedError
 
@@ -262,6 +228,7 @@ class MMModemSimpleInterface(DbusInterfaceCommon, interface_name='org.freedeskto
 		Get the general modem status.
 
 		The predefined common properties returned are:
+
 		"state"
 			A MMModemState value specifying the overall state of the modem, given as an unsigned integer value (signature "u").
 		"signal-quality"
@@ -285,8 +252,7 @@ class MMModemSimpleInterface(DbusInterfaceCommon, interface_name='org.freedeskto
 		"cdma-nid"
 			The Network Identifier of the serving network, if registered in a CDMA1x network and if known. Given as an unsigned integer value (signature "u").
 		
-		OUT a{sv} properties:
-			Dictionary of properties.
+		:returns: Dictionary of properties.
 		"""
 		raise NotImplementedError
 
@@ -297,19 +263,15 @@ class MMModemSingalInterface(DbusInterfaceCommon, interface_name='org.freedeskto
 	def setup(self, rate: int):
 		"""Setup extended signal quality information retrieval.
 		
-		IN u rate:
-			refresh rate to set, in seconds. 0 to disable retrieval.
-		
-		Args:
-			rate (int): _description_
+		:param rate: Refresh rate to set, in seconds. 0 to disable retrieval.
 		"""
 		raise NotImplementedError
 
 	@dbus_property('u')
 	def rate(self) -> int:
-		"""Refresh rate for the extended signal quality information updates, in seconds. A value of 0 disables the retrieval of the values.
-		Returns:
-			int: _description_
+		"""
+		Refresh rate for the extended signal quality information updates, in seconds.
+		A value of 0 disables the retrieval of the values.
 		"""
 		raise NotImplementedError
 	
@@ -363,11 +325,7 @@ class MMModemVoiceInterface(DbusInterfaceCommon, interface_name='org.freedesktop
 		"""
 		Retrieve all Calls.
 
-		OUT ao result:
-			The list of call object paths.
-
-		Returns:
-			list[str]: _description_
+		:returns: The list of call object paths.
 		"""
 		raise NotImplementedError
 
@@ -377,11 +335,7 @@ class MMModemVoiceInterface(DbusInterfaceCommon, interface_name='org.freedesktop
 		Delete a Call from the list of calls.
 		The call will be hangup if it is still active.
 
-		IN o path:
-			The object path of the Call to delete.
-
-		Args:
-			path (str): _description_
+		:param path: The object path of the Call to delete.
 		"""
 		raise NotImplementedError
 
@@ -391,81 +345,50 @@ class MMModemVoiceInterface(DbusInterfaceCommon, interface_name='org.freedesktop
 		Creates a new call object for a new outgoing call.
 		The 'Number' is the only expected property to set by the user.
 
-		IN a{sv} properties:
-			Call properties from the Call D-Bus interface.
-
-		OUT o path:
-			The object path of the new call object.
-
-		Args:
-			properties (dict[str, str]): Call properties from the Call D-Bus interface.
-		Returns:
-			str: The object path of the new call object.
+		:param properties: Call properties from the Call D-Bus interface.
+		:returns: The object path of the new call object.
 		"""
 		raise NotImplementedError
 
 	@dbus_method()
 	def hold_and_accept(self) -> None:
-		"""
-		Place all active calls on hold, if any, and accept the next call.
-		"""
+		"""Place all active calls on hold, if any, and accept the next call."""
 		raise NotImplementedError
 
 	@dbus_method()
 	def hangup_and_accept(self) -> None:
-		"""
-		Hangup all active calls, if any, and accept the next call.
-		"""
+		"""Hangup all active calls, if any, and accept the next call."""
 		raise NotImplementedError
 
 	@dbus_method()
 	def hangup_all(self) -> None:
-		"""
-		Hangup all active calls.
-		"""
+		"""Hangup all active calls."""
 		raise NotImplementedError
 
 	@dbus_method()
 	def transfer(self) -> None:
 		"""
-		Join the currently active and held calls together into a single multiparty call, but disconnects from them.
+		Join the currently active and held calls together into a single multiparty call,
+		but disconnects from them.
 		"""
 		raise NotImplementedError
 
 	@dbus_method(input_signature='b')
 	def call_waiting_setup(self, enable: bool) -> None:
-		"""Activates or deactivates the call waiting network service, as per 3GPP TS 22.083.
-
-		IN b enable:
-
-		Args:
-			enable (bool): _description_
-		"""
+		"""Activates or deactivates the call waiting network service, as per 3GPP TS 22.083."""
 		raise NotImplementedError
 
 	@dbus_method(result_signature='b')
 	def call_waiting_query(self) -> bool:
-		"""Queries the status of the call waiting network service, as per 3GPP TS 22.083.
-
-		OUT b status:
-
-		Returns:
-			bool: _description_
-		"""
+		"""Queries the status of the call waiting network service, as per 3GPP TS 22.083."""
 		raise NotImplementedError
 
 	@dbus_property('o', property_name='Calls')
 	def call_object_paths(self) -> List[str]:
-		"""The list of calls object paths.
-		Returns:
-			list[str]: _description_
-		"""
+		"""The list of calls object paths."""
 		raise NotImplementedError
 
 	@dbus_property('b')
 	def emergency_only(self) -> bool:
-		"""A flag indicating whether emergency calls are the only allowed ones.
-		Returns:
-			bool: _description_
-		"""
+		"""A flag indicating whether emergency calls are the only allowed ones."""
 		raise NotImplementedError
