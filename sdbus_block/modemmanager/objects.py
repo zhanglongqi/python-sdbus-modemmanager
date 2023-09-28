@@ -5,7 +5,7 @@ from sdbus.sd_bus_internals import SdBus
 from .enums import MMCallDirection, MMCallState, MMCallStateReason
 from .interfaces_bearer import MMBearerInterface
 from .interfaces_call import MMCallInterface
-from .interfaces_modem import MMModemInterface, MMModemMessagingInterface, MMModemSimpleInterface, MMModemSingalInterface, MMModemsInterface, MMModemVoiceInterface
+from .interfaces_modem import MMModemInterface, MMModemMessagingInterface, MMModemSimpleInterface, MMModemSignalInterface, MMModemsInterface, MMModemVoiceInterface
 from .interfaces_root import MMInterface
 from .interfaces_sim import MMSimInterface
 from .interfaces_sms import MMSmsInterface
@@ -64,7 +64,7 @@ class MMModemMessaging(MMModemMessagingInterface):
 		self.delete(sms._remote_object_path)
 
 
-class MMModemSignal(MMModemSingalInterface):
+class MMModemSignal(MMModemSignalInterface):
 
 	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
 		"""

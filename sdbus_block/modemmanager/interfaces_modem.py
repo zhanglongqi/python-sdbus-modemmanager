@@ -257,7 +257,7 @@ class MMModemSimpleInterface(DbusInterfaceCommon, interface_name='org.freedeskto
 		raise NotImplementedError
 
 
-class MMModemSingalInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemManager1.Modem.Signal'):
+class MMModemSignalInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemManager1.Modem.Signal'):
 
 	@dbus_method('u')
 	def setup(self, rate: int):
