@@ -1,3 +1,5 @@
+from typing import List, Tuple
+
 from sdbus import DbusInterfaceCommon, dbus_method, dbus_property
 
 
@@ -24,7 +26,7 @@ class MMSimInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemM
 		raise NotImplementedError
 
 	@dbus_method(input_signature='sb')
-	def enable_pin(self, pin: str = '', enable: bool = False) -> None:
+	def enable_pin(self, pin: str = '', enabled: bool = False) -> None:
 		"""
 		Enable or disable the PIN checking.
 
@@ -43,6 +45,23 @@ class MMSimInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemM
 		"""
 		raise NotImplementedError
 
+	@dbus_method(input_signature='a(su)')
+	def set_preferred_networks(self, preferred_networks: List[Tuple[str, int]]) -> None:
+		"""
+		Stores the provided preferred network list to the SIM card.
+
+		Each entry contains an operator id string ("MCCMNC") consisting of 5 or 6 digits,
+		and an MMModemAccessTechnology mask to store to SIM card if supported.
+
+		:param preferred_networks: Operator id string and MMModemAccessTechnology mask.
+		"""
+		raise NotImplementedError
+
+	@dbus_property(property_signature='b')
+	def active(self) -> bool:
+		"""Boolean indicating whether the SIM is currently active."""
+		raise NotImplementedError
+
 	@dbus_property('s')
 	def sim_identifier(self) -> str:
 		"""
@@ -56,6 +75,11 @@ class MMSimInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemM
 		"""The IMSI of the SIM card, if any."""
 		raise NotImplementedError
 
+	@dbus_property(property_signature='s')
+	def eid(self) -> str:
+		"""The EID of the SIM card, if any."""
+		raise NotImplementedError
+
 	@dbus_property('s')
 	def operator_identifier(self) -> str:
 		raise NotImplementedError
@@ -63,4 +87,44 @@ class MMSimInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemM
 	@dbus_property('s')
 	def operator_name(self) -> str:
 		"""The name of the network operator, as given by the SIM card, if known."""
+		raise NotImplementedError
+
+	@dbus_property(property_signature='as')
+	def emergency_numbers(self) -> List[str]:
+		"""List of emergency numbers programmed in the SIM card."""
+		raise NotImplementedError
+
+	@dbus_property(property_signature='a(su)')
+	def preferred_networks(self) -> List[Tuple[str, int]]:
+		"""
+		List of preferred networks with access technologies configured in the SIM card.
+
+		Each entry contains an operator id string ("MCCMNC") consisting of 5 or 6 digits,
+		and an MMModemAccessTechnology mask to store to SIM card if supported.
+		"""
+		raise NotImplementedError
+
+	@dbus_property(property_signature='ay')
+	def gid1(self) -> bytes:
+		"""Group identifier level 1."""
+		raise NotImplementedError
+
+	@dbus_property(property_signature='ay')
+	def gid2(self) -> bytes:
+		"""Group identifier level 2."""
+		raise NotImplementedError
+
+	@dbus_property(property_signature='u')
+	def sim_type(self) -> int:
+		"""Indicates whether the current primary SIM is a ESIM or a physical SIM, given as MMSimType value."""
+		raise NotImplementedError
+
+	@dbus_property(property_signature='u')
+	def esim_status(self) -> int:
+		"""If current SIM is ESIM then this indicates whether there is a profile or not, given as MMSimEsimStatus value."""
+		raise NotImplementedError
+
+	@dbus_property(property_signature='u')
+	def removability(self) -> int:
+		"""Indicates whether the current SIM is a removable SIM or not, given as a MMSimRemovability value."""
 		raise NotImplementedError
