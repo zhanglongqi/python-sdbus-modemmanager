@@ -16,17 +16,17 @@ MODEM_MANAGER_SERVICE_NAME = 'org.freedesktop.ModemManager1'
 class MM(MMInterface):
 	"""Modem Manger main object
 
-    Implements :py:class:`ModemManagerInterface`
+	Implements :py:class:`ModemManagerInterface`
 
-    Service name ``'org.freedesktop.ModemManager1'``
-    and object path ``/org/freedesktop/ModemManager1`` is predetermined.
-    """
+	Service name ``'org.freedesktop.ModemManager1'``
+	and object path ``/org/freedesktop/ModemManager1`` is predetermined.
+	"""
 
 	def __init__(self, bus: Optional[SdBus] = None) -> None:
 		"""
-        :param bus: You probably want to set default bus to system bus \
-            or pass system bus directly.
-        """
+		:param bus: You probably want to set default bus to system bus \
+			or pass system bus directly.
+		"""
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, '/org/freedesktop/ModemManager1', bus)
 
 
@@ -39,7 +39,7 @@ class MMSms(MMSmsInterface):
 	) -> None:
 		"""
 		:param bus: You probably want to set default bus to system bus \
-		or pass system bus directly.
+			or pass system bus directly.
 		"""
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 
@@ -68,9 +68,9 @@ class MMModemSignal(MMModemSingalInterface):
 
 	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
 		"""
-        :param bus: You probably want to set default bus to system bus \
-            or pass system bus directly.
-        """
+		:param bus: You probably want to set default bus to system bus \
+			or pass system bus directly.
+		"""
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 
 
@@ -97,9 +97,9 @@ class MMModem(MMModemInterface):
 		bus: Optional[SdBus] = None,
 	) -> None:
 		"""
-        :param bus: You probably want to set default bus to system bus \
-            or pass system bus directly.
-        """
+		:param bus: You probably want to set default bus to system bus \
+			or pass system bus directly.
+		"""
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 		self.messaging = MMModemMessaging(object_path=object_path, bus=bus)
 		self.simple = MMModemSimple(object_path=object_path, bus=bus)
@@ -143,9 +143,9 @@ class MMSim(MMSimInterface):
 		bus: Optional[SdBus] = None,
 	) -> None:
 		"""
-        :param bus: You probably want to set default bus to system bus \
-            or pass system bus directly.
-        """
+		:param bus: You probably want to set default bus to system bus \
+			or pass system bus directly.
+		"""
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 
 
@@ -157,9 +157,9 @@ class MMBearer(MMBearerInterface):
 		bus: Optional[SdBus] = None,
 	) -> None:
 		"""
-        :param bus: You probably want to set default bus to system bus \
-            or pass system bus directly.
-        """
+		:param bus: You probably want to set default bus to system bus \
+			or pass system bus directly.
+		"""
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 
 
@@ -173,29 +173,20 @@ class MMCall(MMCallInterface):
 		"""
 		:param bus: You probably want to set default bus to system bus \
 			or pass system bus directly.
-        """
+		"""
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 
 	@property
 	def state_text(self) -> str:
-		"""A MMCallState name, describing the state of the call.
-		Returns:
-			str: _description_
-		"""
+		"""A MMCallState name, describing the state of the call."""
 		return MMCallState(self.state).name
 
 	@property
 	def state_reason_text(self) -> str:
-		"""A MMCallStateReason name, describing why the state is changed.
-		Returns:
-			str: _description_
-		"""
+		"""A MMCallStateReason name, describing why the state is changed."""
 		return MMCallStateReason(self.state_reason).name
 
 	@property
 	def direction_text(self) -> str:
-		"""A MMCallDirection name, describing the direction of the call.
-		Returns:
-			str: _description_
-		"""
+		"""A MMCallDirection name, describing the direction of the call."""
 		return MMCallDirection(self.direction).name

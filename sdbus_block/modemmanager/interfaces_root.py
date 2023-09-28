@@ -8,22 +8,14 @@ class MMInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemMana
 
 	@dbus_method()
 	def scan_devices(self) -> None:
-		"""
-		Start a new scan for connected modem devices.
-		Raises:
-			NotImplementedError: _description_
-		"""
+		"""Start a new scan for connected modem devices."""
 		raise NotImplementedError
 
 	@dbus_method(input_signature='s')
 	def set_logging(self, level: str) -> None:
-		"""
-		Set logging verbosity.
-		Args:
-			level (str): IN s level:	One of "ERR", "WARN", "INFO", "DEBUG".
+		"""Set logging verbosity.
 
-		Raises:
-			NotImplementedError: _description_
+		:param level: One of "ERR", "WARN", "INFO", "DEBUG".
 		"""
 		raise NotImplementedError
 
