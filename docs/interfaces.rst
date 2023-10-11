@@ -16,7 +16,7 @@ Interfaces
 .. autoclass:: sdbus_block.modemmanager.MMModemSimpleInterface
     :members:
 
-.. autoclass:: sdbus_block.modemmanager.MMModemSingalInterface
+.. autoclass:: sdbus_block.modemmanager.MMModemSignalInterface
     :members:
 
 .. autoclass:: sdbus_block.modemmanager.MMModemVoiceInterface

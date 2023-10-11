@@ -3,20 +3,20 @@ from typing import Dict, List, Optional
 from sdbus.sd_bus_internals import SdBus
 
 from .enums import MMCallDirection, MMCallState, MMCallStateReason
-from .interfaces_bearer import MMBearerInterface
-from .interfaces_call import MMCallInterface
-from .interfaces_modem import MMModemInterface, MMModemMessagingInterface, MMModemSimpleInterface, MMModemSignalInterface, MMModemsInterface, MMModemVoiceInterface
-from .interfaces_root import MMInterface
-from .interfaces_sim import MMSimInterface
-from .interfaces_sms import MMSmsInterface
+from .interfaces_bearer import MMBearerInterfaceAsync
+from .interfaces_call import MMCallInterfaceAsync
+from .interfaces_modem import MMModemInterfaceAsync, MMModemMessagingInterfaceAsync, MMModemSimpleInterfaceAsync, MMModemSignalInterfaceAsync, MMModemsInterfaceAsync, MMModemVoiceInterfaceAsync
+from .interfaces_root import MMInterfaceAsync
+from .interfaces_sim import MMSimInterfaceAsync
+from .interfaces_sms import MMSmsInterfaceAsync
 
 MODEM_MANAGER_SERVICE_NAME = 'org.freedesktop.ModemManager1'
 
 
-class MM(MMInterface):
+class MM(MMInterfaceAsync):
 	"""Modem Manger main object
 
-	Implements :py:class:`ModemManagerInterface`
+	Implements :py:class:`ModemManagerInterfaceAsync`
 
 	Service name ``'org.freedesktop.ModemManager1'``
 	and object path ``/org/freedesktop/ModemManager1`` is predetermined.
@@ -27,10 +27,11 @@ class MM(MMInterface):
 		:param bus: You probably want to set default bus to system bus \
 			or pass system bus directly.
 		"""
-		super().__init__(MODEM_MANAGER_SERVICE_NAME, '/org/freedesktop/ModemManager1', bus)
+		super().__init__()
+		self._connect(MODEM_MANAGER_SERVICE_NAME, '/org/freedesktop/ModemManager1', bus)
 
 
-class MMSms(MMSmsInterface):
+class MMSms(MMSmsInterfaceAsync):
 
 	def __init__(
 		self,
@@ -41,15 +42,17 @@ class MMSms(MMSmsInterface):
 		:param bus: You probably want to set default bus to system bus \
 			or pass system bus directly.
 		"""
-		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+		super().__init__()
+		self._connect(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 
 
-class MMModemMessaging(MMModemMessagingInterface):
+class MMModemMessaging(MMModemMessagingInterfaceAsync):
 
 	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
-		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+		super().__init__()
+		self._connect(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 
-	def create_sms(self, number: str, text: str = None, data: bytes = None) -> MMSms:
+	async def create_sms(self, number: str, text: str = None, data: bytes = None) -> MMSms:
 		"""Creates a new message object."""
 		args = {"number": ("s", number)}
 		if text:
@@ -59,37 +62,40 @@ class MMModemMessaging(MMModemMessagingInterface):
 
 		return MMSms(self.create(properties=args))
 
-	def delete_sms(self, sms: MMSms) -> None:
+	async def delete_sms(self, sms: MMSms) -> None:
 		"""Delete an SMS message."""
 		self.delete(sms._remote_object_path)
 
 
-class MMModemSignal(MMModemSignalInterface):
+class MMModemSignal(MMModemSignalInterfaceAsync):
 
 	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
 		"""
 		:param bus: You probably want to set default bus to system bus \
 			or pass system bus directly.
 		"""
-		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+		super().__init__()
+		self._connect(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 
 
-class MMModemSimple(MMModemSimpleInterface):
-
-	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
-		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
-
-
-class MMModemVoice(MMModemVoiceInterface):
+class MMModemSimple(MMModemSimpleInterfaceAsync):
 
 	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
-		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+		super().__init__()
+		self._connect(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 
-	def get_calls(self):
+
+class MMModemVoice(MMModemVoiceInterfaceAsync):
+
+	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
+		super().__init__()
+		self._connect(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+
+	async def get_calls(self):
 		return [MMCall(path) for path in self.call_object_paths]
 
 
-class MMModem(MMModemInterface):
+class MMModem(MMModemInterfaceAsync):
 
 	def __init__(
 		self,
@@ -100,7 +106,8 @@ class MMModem(MMModemInterface):
 		:param bus: You probably want to set default bus to system bus \
 			or pass system bus directly.
 		"""
-		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+		super().__init__()
+		self._connect(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 		self.messaging = MMModemMessaging(object_path=object_path, bus=bus)
 		self.simple = MMModemSimple(object_path=object_path, bus=bus)
 		self.signal = MMModemSignal(object_path=object_path, bus=bus)
@@ -108,34 +115,36 @@ class MMModem(MMModemInterface):
 		self.sim: Optional[MMSim] = None
 		self.bearers: List[MMBearer] = []
 
-	def set_sim(self, object_path: str):
+	async def set_sim(self, object_path: str):
 		self.sim = MMSim(object_path=object_path)
 
-	def set_bearers(self, object_paths: List[str]):
+	async def set_bearers(self, object_paths: List[str]):
 		for p in object_paths:
 			b = MMBearer(p)
 			self.bearers.append(b)
 
 
-class MMModems(MMModemsInterface):
+class MMModems(MMModemsInterfaceAsync):
 	modems: List[MMModem] = []
 
 	def __init__(self, bus: Optional[SdBus] = None) -> None:
-		super().__init__(service_name=MODEM_MANAGER_SERVICE_NAME, object_path='/org/freedesktop/ModemManager1', bus=bus)
+		super().__init__()
+		self._connect(service_name=MODEM_MANAGER_SERVICE_NAME, object_path='/org/freedesktop/ModemManager1', bus=bus)
 
-	def get_modems(self) -> List[MMModem]:
-		for k, v in self.get_managed_objects().items():
+	async def get_modems(self) -> List[MMModem]:
+		objects = await self.get_managed_objects()
+		for k, v in objects.items():
 			m: MMModem = MMModem(object_path=k)
 			self.modems.append(m)
 		return self.modems
 
-	def get_first(self) -> Optional[MMModem]:
+	async def get_first(self) -> Optional[MMModem]:
 		if len(self.modems) <= 0:
-			self.get_modems()
+			await self.get_modems()
 		return self.modems[0] if len(self.modems) >= 1 else None
 
 
-class MMSim(MMSimInterface):
+class MMSim(MMSimInterfaceAsync):
 
 	def __init__(
 		self,
@@ -146,24 +155,11 @@ class MMSim(MMSimInterface):
 		:param bus: You probably want to set default bus to system bus \
 			or pass system bus directly.
 		"""
-		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+		super().__init__()
+		self._connect(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 
 
-class MMBearer(MMBearerInterface):
-
-	def __init__(
-		self,
-		object_path: str,
-		bus: Optional[SdBus] = None,
-	) -> None:
-		"""
-		:param bus: You probably want to set default bus to system bus \
-			or pass system bus directly.
-		"""
-		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
-
-
-class MMCall(MMCallInterface):
+class MMBearer(MMBearerInterfaceAsync):
 
 	def __init__(
 		self,
@@ -174,7 +170,23 @@ class MMCall(MMCallInterface):
 		:param bus: You probably want to set default bus to system bus \
 			or pass system bus directly.
 		"""
-		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+		super().__init__()
+		self._connect(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+
+
+class MMCall(MMCallInterfaceAsync):
+
+	def __init__(
+		self,
+		object_path: str,
+		bus: Optional[SdBus] = None,
+	) -> None:
+		"""
+		:param bus: You probably want to set default bus to system bus \
+			or pass system bus directly.
+		"""
+		super().__init__()
+		self._connect(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 
 	@property
 	def state_text(self) -> str:
