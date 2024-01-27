@@ -22,6 +22,14 @@ setup(
 	],
 	license='LGPL-2.1-or-later',
 	packages=['sdbus_async.modemmanager', 'sdbus_block.modemmanager'],
+	package_data={
+		'sdbus_async.modemmanager': [
+			'py.typed'
+		],
+		'sdbus_block.modemmanager': [
+			'py.typed'
+		],
+	},
 	python_requires='>=3.7',
 	install_requires=[
 		'sdbus>=0.8rc2',
