@@ -5,7 +5,7 @@ setup(
 	description=('ModemManager binds for sdbus.'),
 	long_description=open('README.md').read(),
 	long_description_content_type='text/markdown',
-	version='1.0.0',
+	version='1.0.1',
 	url='https://github.com/zhanglongqi/python-sdbus-modemmanager',
 	project_urls={
 		'Source': 'https://github.com/zhanglongqi/python-sdbus-modemmanager/',
