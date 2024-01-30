@@ -124,6 +124,7 @@ class MMModems(MMModemsInterface):
 		super().__init__(service_name=MODEM_MANAGER_SERVICE_NAME, object_path='/org/freedesktop/ModemManager1', bus=bus)
 
 	def get_modems(self) -> List[MMModem]:
+		self.modems = []
 		for k, v in self.get_managed_objects().items():
 			m: MMModem = MMModem(object_path=k)
 			self.modems.append(m)
