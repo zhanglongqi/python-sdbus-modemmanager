@@ -149,6 +149,18 @@ class MMModemInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mode
 	def power_state_text(self):
 		return MMModemPowerState(self.power_state).name
 
+	@dbus_property('u')
+	def access_technologies(self):
+		"""
+		A MMModemAccessTechnology bitfield that describes the various access technologies
+		that device uses when registered with or connected to a network
+		"""
+		raise NotImplementedError
+
+	@property
+	def access_technologies_text(self) -> Optional[str]:
+		return MMModemAccessTechnology(self.access_technologies).name
+
 
 class MMModemMessagingInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemManager1.Modem.Messaging'):
 	"""The Messaging interface handles sending SMS messages and notification of new incoming messages."""
