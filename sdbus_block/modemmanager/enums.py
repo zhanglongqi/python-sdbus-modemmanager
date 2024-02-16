@@ -1,4 +1,4 @@
-from enum import Enum, IntEnum, IntFlag
+from enum import IntEnum, IntFlag
 
 
 class MMModemState(IntEnum):
@@ -52,7 +52,7 @@ class MMModemStateFailedReason(IntEnum):
 	MM_MODEM_STATE_FAILED_REASON_ESIM_WITHOUT_PROFILES = 5
 
 
-class MMModemMode(IntEnum):
+class MMModemMode(IntFlag):
 	"""Bitfield to indicate which access modes are supported, allowed or preferred in a given device.
 
 	* MM_MODEM_MODE_NONE: None.
