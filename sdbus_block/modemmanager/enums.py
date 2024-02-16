@@ -33,6 +33,25 @@ class MMModemState(IntEnum):
 	MM_MODEM_STATE_CONNECTED = 11
 
 
+class MMModemStateFailedReason(IntEnum):
+	"""
+	Enumeration of possible errors when the modem is in @MM_MODEM_STATE_FAILED
+
+	* @MM_MODEM_STATE_FAILED_REASON_NONE: No error.
+	* @MM_MODEM_STATE_FAILED_REASON_UNKNOWN: Unknown error.
+	* @MM_MODEM_STATE_FAILED_REASON_SIM_MISSING: SIM is required but missing.
+	* @MM_MODEM_STATE_FAILED_REASON_SIM_ERROR: SIM is available, but unusable (e.g. permanently locked).
+	* @MM_MODEM_STATE_FAILED_REASON_UNKNOWN_CAPABILITIES: Unknown modem capabilities. Since 1.20.
+	* @MM_MODEM_STATE_FAILED_REASON_ESIM_WITHOUT_PROFILES: eSIM is not initialized. Since 1.20.
+	"""
+	MM_MODEM_STATE_FAILED_REASON_NONE = 0,
+	MM_MODEM_STATE_FAILED_REASON_UNKNOWN = 1,
+	MM_MODEM_STATE_FAILED_REASON_SIM_MISSING = 2,
+	MM_MODEM_STATE_FAILED_REASON_SIM_ERROR = 3,
+	MM_MODEM_STATE_FAILED_REASON_UNKNOWN_CAPABILITIES = 4,
+	MM_MODEM_STATE_FAILED_REASON_ESIM_WITHOUT_PROFILES = 5
+
+
 class MMModemMode(IntEnum):
 	"""Bitfield to indicate which access modes are supported, allowed or preferred in a given device.
 

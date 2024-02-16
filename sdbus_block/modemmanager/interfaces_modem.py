@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from sdbus import DbusInterfaceCommon, DbusObjectManagerInterface, dbus_method, dbus_property
 
-from .enums import MMModemPowerState, MMModemState
+from .enums import MMModemPowerState, MMModemState, MMModemStateFailedReason
 
 
 class MMModemsInterface(DbusObjectManagerInterface):
@@ -122,6 +122,10 @@ class MMModemInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mode
 		given as a MMModemStateFailedReason value.
 		"""
 		raise NotImplementedError
+
+	@property
+	def state_failed_reason_text(self) -> str:
+		return MMModemStateFailedReason(self.state_failed_reason).name
 
 	@dbus_property('ub')
 	def signal_quality(self):
