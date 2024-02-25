@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from sdbus import DbusInterfaceCommon, DbusObjectManagerInterface, dbus_method, dbus_property
 
-from .enums import MMModemPowerState, MMModemState
+from .enums import MMModemPowerState, MMModemState, MMModemStateFailedReason
 
 
 class MMModemsInterface(DbusObjectManagerInterface):
@@ -123,6 +123,10 @@ class MMModemInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mode
 		"""
 		raise NotImplementedError
 
+	@property
+	def state_failed_reason_text(self) -> str:
+		return MMModemStateFailedReason(self.state_failed_reason).name
+
 	@dbus_property('ub')
 	def signal_quality(self):
 		"""
@@ -144,6 +148,18 @@ class MMModemInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mode
 	@property
 	def power_state_text(self):
 		return MMModemPowerState(self.power_state).name
+
+	@dbus_property('u')
+	def access_technologies(self):
+		"""
+		A MMModemAccessTechnology bitfield that describes the various access technologies
+		that device uses when registered with or connected to a network
+		"""
+		raise NotImplementedError
+
+	@property
+	def access_technologies_text(self) -> Optional[str]:
+		return MMModemAccessTechnology(self.access_technologies).name
 
 
 class MMModemMessagingInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemManager1.Modem.Messaging'):
