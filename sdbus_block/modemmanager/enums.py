@@ -235,3 +235,13 @@ class MMModemCapability(IntEnum):
 	MM_MODEM_CAPABILITY_TDS = 1 << 7
 	MM_MODEM_CAPABILITY_ANY = 0xFFFFFFFF
 
+	@staticmethod
+	def names(value) -> list:
+		names = []
+		if MMModemCapability.MM_MODEM_CAPABILITY_ANY != value:
+			for capability in MMModemCapability:
+				if capability & value and capability != MMModemCapability.MM_MODEM_CAPABILITY_ANY:
+					names.append(capability.name)
+		else:
+			names.append(MMModemCapability.MM_MODEM_CAPABILITY_ANY.name)
+		return names

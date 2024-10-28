@@ -18,7 +18,10 @@ if __name__ == "__main__":
 				f'{modem.hardware_revision=}\n'
 				f'{modem.own_numbers=}\n'
 				f'{modem.power_state_text=}\n'
-				f'{modem.signal_quality=}\n')
+				f'{modem.signal_quality=}\n'
+				f'{modem.access_technologies_text=}\n'
+				f'{modem.current_capabilities=}\n'
+				f'{modem.current_capabilities_text=}\n')
 
 		if modem.sim_object_path is not None:
 			modem.set_sim(modem.sim_object_path)

@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from sdbus import DbusInterfaceCommon, DbusObjectManagerInterface, dbus_method, dbus_property
 
-from .enums import MMModemPowerState, MMModemState, MMModemStateFailedReason
+from .enums import MMModemPowerState, MMModemState, MMModemStateFailedReason, MMModemAccessTechnology, MMModemCapability
 
 
 class MMModemsInterface(DbusObjectManagerInterface):
@@ -165,6 +165,10 @@ class MMModemInterface(DbusInterfaceCommon, interface_name='org.freedesktop.Mode
 	def current_capabilities(self) -> int:
 		raise NotImplementedError
 
+	@property
+	def current_capabilities_text(self) -> Tuple[str]:
+		return tuple(MMModemCapability.names(self.current_capabilities))
+
 
 class MMModemMessagingInterface(DbusInterfaceCommon, interface_name='org.freedesktop.ModemManager1.Modem.Messaging'):
 	"""The Messaging interface handles sending SMS messages and notification of new incoming messages."""
@@ -294,21 +298,21 @@ class MMModemSignalInterface(DbusInterfaceCommon, interface_name='org.freedeskto
 		A value of 0 disables the retrieval of the values.
 		"""
 		raise NotImplementedError
-	
+
 	@dbus_property('a{sv}')
 	def cdma(self) -> Dict[str, Tuple[str, Any]]:
 		"""
 		Dictionary of available signal information for the CDMA1x access technology.
 		"""
 		raise NotImplementedError
-	
+
 	@dbus_property('a{sv}')
 	def evdo(self) -> Dict[str, Tuple[str, Any]]:
 		"""
 		Dictionary of available signal information for the CDMA EV-DO access technology.
 		"""
 		raise NotImplementedError
-	
+
 	@dbus_property('a{sv}')
 	def gsm(self) -> Dict[str, Tuple[str, Any]]:
 		"""
@@ -322,14 +326,14 @@ class MMModemSignalInterface(DbusInterfaceCommon, interface_name='org.freedeskto
 		Dictionary of available signal information for the UMTS (WCDMA) access technology.
 		"""
 		raise NotImplementedError
-	
+
 	@dbus_property('a{sv}')
 	def lte(self) -> Dict[str, Tuple[str, Any]]:
 		"""
 		Dictionary of available signal information for the LTE access technology.
 		"""
 		raise NotImplementedError
-	
+
 	@dbus_property('a{sv}')
 	def nr5g(self) -> Dict[str, Tuple[str, Any]]:
 		"""
