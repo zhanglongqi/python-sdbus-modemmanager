@@ -1,0 +1,42 @@
+[project]
+name = "sdbus-modemmanager"
+version = "1.0.2"
+description = "ModemManager binds for sdbus."
+authors = [
+    {name = "longqi",email = "longqi90@gmail.com"}
+]
+license = {text = "LGPL-2.1-or-later"}
+readme = "README.md"
+requires-python = ">=3.7,<4.0"
+dependencies = [
+    "sdbus>=0.8rc2"
+]
+keywords = [
+    "sdbus",
+    "modemmanager",
+    "dbus"
+]
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)',
+    'Operating System :: POSIX :: Linux',
+    'Programming Language :: Python :: 3 :: Only',
+    'Topic :: Software Development :: Libraries :: Python Modules',
+]
+
+[tool.poetry]
+packages = [
+    { include = "modemmanager", from="sdbus_async", to="sdbus_async/modemmanager" },
+    { include = "modemmanager", from="sdbus_block", to="sdbus_block/modemmanager" },
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.yapf]
+use_tabs = true
+column_limit = 180
+continuation_align_style = "valign-right"
