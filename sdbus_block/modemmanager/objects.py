@@ -5,10 +5,12 @@ from sdbus.sd_bus_internals import SdBus
 from .enums import MMCallDirection, MMCallState, MMCallStateReason
 from .interfaces_bearer import MMBearerInterface
 from .interfaces_call import MMCallInterface
-from .interfaces_modem import MMModemInterface, MMModemMessagingInterface, MMModemSimpleInterface, MMModemSignalInterface, MMModemsInterface, MMModemVoiceInterface
+from .interfaces_modem import MMModemInterface, MMModemMessagingInterface,  MMModemSignalInterface, MMModemsInterface, MMModemVoiceInterface
 from .interfaces_root import MMInterface
 from .interfaces_sim import MMSimInterface
 from .interfaces_sms import MMSmsInterface
+from .interfaces_3gpp import MMModem3gppInterface
+from .interfaces_simple import MMModemSimpleInterface
 
 MODEM_MANAGER_SERVICE_NAME = 'org.freedesktop.ModemManager1'
 
@@ -105,6 +107,7 @@ class MMModem(MMModemInterface):
 		self.simple = MMModemSimple(object_path=object_path, bus=bus)
 		self.signal = MMModemSignal(object_path=object_path, bus=bus)
 		self.voice = MMModemVoice(object_path=object_path, bus=bus)
+		self.modem3gpp = MMModem3gpp(object_path=object_path, bus=bus)
 		self.sim: Optional[MMSim] = None
 		self.bearers: List[MMBearer] = []
 
@@ -191,3 +194,8 @@ class MMCall(MMCallInterface):
 	def direction_text(self) -> str:
 		"""A MMCallDirection name, describing the direction of the call."""
 		return MMCallDirection(self.direction).name
+
+class MMModem3gpp(MMModem3gppInterface):
+
+	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
+		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
