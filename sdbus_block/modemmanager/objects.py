@@ -11,6 +11,7 @@ from .interfaces_sim import MMSimInterface
 from .interfaces_sms import MMSmsInterface
 from .interfaces_3gpp import MMModem3gppInterface
 from .interfaces_simple import MMModemSimpleInterface
+from .interfaces_time import MMModemTimeInterface
 
 MODEM_MANAGER_SERVICE_NAME = 'org.freedesktop.ModemManager1'
 
@@ -108,6 +109,7 @@ class MMModem(MMModemInterface):
 		self.signal = MMModemSignal(object_path=object_path, bus=bus)
 		self.voice = MMModemVoice(object_path=object_path, bus=bus)
 		self.modem3gpp = MMModem3gpp(object_path=object_path, bus=bus)
+		self.time = MMModemTime(object_path=object_path, bus=bus)
 		self.sim: Optional[MMSim] = None
 		self.bearers: List[MMBearer] = []
 
@@ -196,6 +198,11 @@ class MMCall(MMCallInterface):
 		return MMCallDirection(self.direction).name
 
 class MMModem3gpp(MMModem3gppInterface):
+
+	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
+		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+        
+class MMModemTime(MMModemTimeInterface):
 
 	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)

@@ -20,33 +20,33 @@ class MMModemSimpleInterface(
 	DbusInterfaceCommon,
 	interface_name="org.freedesktop.ModemManager1.Modem.Simple",
 ):
-		"""
-		Allowed key/value pairs in properties are:
+	"""
+	Allowed key/value pairs in properties are:
 
-		"pin"
-			SIM-PIN unlock code, given as a string value (signature "s").
-		"operator-id"
-			ETSI MCC-MNC of a network to force registration with, given as a string value (signature "s").
-		"apn"
-			For GSM/UMTS and LTE devices the APN to use, given as a string value (signature "s").
-		"ip-type"
-			For GSM/UMTS and LTE devices the IP addressing type to use, given as a MMBearerIpFamily value (signature "u").
-		"allowed-auth"
-			The authentication method to use, given as a MMBearerAllowedAuth value (signature "u"). Optional in 3GPP.
-		"user"
-			User name (if any) required by the network, given as a string value (signature "s"). Optional in 3GPP.
-		"password"
-			Password (if any) required by the network, given as a string value (signature "s"). Optional in 3GPP.
-		"number"
-			For POTS devices the number to dial, given as a string value (signature "s").
-		"allow-roaming"
-			False to allow only connections to home networks, given as a boolean value (signature "b").
-		"rm-protocol"
-			For CDMA devices, the protocol of the Rm interface, given as a MMModemCdmaRmProtocol value (signature "u").
+	"pin"
+		SIM-PIN unlock code, given as a string value (signature "s").
+	"operator-id"
+		ETSI MCC-MNC of a network to force registration with, given as a string value (signature "s").
+	"apn"
+		For GSM/UMTS and LTE devices the APN to use, given as a string value (signature "s").
+	"ip-type"
+		For GSM/UMTS and LTE devices the IP addressing type to use, given as a MMBearerIpFamily value (signature "u").
+	"allowed-auth"
+		The authentication method to use, given as a MMBearerAllowedAuth value (signature "u"). Optional in 3GPP.
+	"user"
+		User name (if any) required by the network, given as a string value (signature "s"). Optional in 3GPP.
+	"password"
+		Password (if any) required by the network, given as a string value (signature "s"). Optional in 3GPP.
+	"number"
+		For POTS devices the number to dial, given as a string value (signature "s").
+	"allow-roaming"
+		False to allow only connections to home networks, given as a boolean value (signature "b").
+	"rm-protocol"
+		For CDMA devices, the protocol of the Rm interface, given as a MMModemCdmaRmProtocol value (signature "u").
 
-		:param properties: Dictionary of properties needed to get the modem connected. ex: {"apn": ("s", "yourAPN.isp"), "ip-type": ("s", "ipv4v6")}
-		:returns: On successful connect, returns the object path of the connected packet data bearer used for the connection attempt.
-		"""
+	:param properties: Dictionary of properties needed to get the modem connected. ex: {"apn": ("s", "yourAPN.isp"), "ip-type": ("s", "ipv4v6")}
+	:returns: On successful connect, returns the object path of the connected packet data bearer used for the connection attempt.
+	"""
 	@dbus_method(
 		input_signature="a{sv}",
 		result_signature="o",

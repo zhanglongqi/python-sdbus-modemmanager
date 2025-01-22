@@ -9,8 +9,9 @@ from .interfaces_sim import MMSimInterface
 from .interfaces_sms import MMSmsInterface
 from .interfaces_3gpp import MMModem3gppInterface
 from .interfaces_simple import MMModemSimpleInterface
+from .interfaces_time import MMModemTimeInterface
 
-from .objects import MM, MMBearer, MMCall, MMModem, MMModems, MMModemMessaging, MMModemSignal, MMModemSimple, MMModemVoice, MMSim, MMSms, MMModem3gpp
+from .objects import MM, MMBearer, MMCall, MMModem, MMModems, MMModemMessaging, MMModemSignal, MMModemSimple, MMModemVoice, MMSim, MMSms, MMModem3gpp, MMModemTime
 
 __all__ = (
 	# .enums
@@ -37,8 +38,10 @@ __all__ = (
 	'MMSimInterface',
 	# .interfaces_sms
 	'MMSmsInterface',
-    # .MMModem3gppInterface
+	# .MMModem3gppInterface
 	'MMModem3gppInterface',
+	# .MMModemTimeInterface
+	'MMModemTimeInterface',
 	# .objects
 	'MM',
 	'MMModems',
@@ -52,4 +55,5 @@ __all__ = (
 	'MMBearer',
 	'MMCall',
 	'MMModem3gpp',
+	'MMModemTime',
 )
