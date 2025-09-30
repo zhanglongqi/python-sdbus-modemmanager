@@ -1,5 +1,4 @@
 from typing import Dict, List, Optional
-from typing_extensions import override
 
 from sdbus.sd_bus_internals import SdBus
 
