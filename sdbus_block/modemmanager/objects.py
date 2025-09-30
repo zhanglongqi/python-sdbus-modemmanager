@@ -1,8 +1,9 @@
 from typing import Dict, List, Optional
+from typing_extensions import override
 
 from sdbus.sd_bus_internals import SdBus
 
-from .enums import MMCallDirection, MMCallState, MMCallStateReason
+from .enums import MMCallDirection, MMCallState, MMCallStateReason, MMModemLocationSource
 from .interfaces_bearer import MMBearerInterface
 from .interfaces_call import MMCallInterface
 from .interfaces_modem import (
@@ -228,3 +229,8 @@ class MMModemLocation(MMModemLocationInterface):
 
     def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
         super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
+
+    @property
+    def enabled_list(self) -> List[str]:
+        bitmask = super().enabled
+        return [src.name for src in MMModemLocationSource if src & bitmask]
