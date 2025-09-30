@@ -245,3 +245,31 @@ class MMModemCapability(IntEnum):
 		else:
 			names.append(MMModemCapability.MM_MODEM_CAPABILITY_ANY.name)
 		return names
+
+class MMModemLocationSource(IntEnum):
+    """Sources of location information supported by the modem.
+   	* MM_MODEM_LOCATION_SOURCE_NONE 			None.
+	* MM_MODEM_LOCATION_SOURCE_3GPP_LAC_CI 		Location Area Code and Cell ID.
+	* MM_MODEM_LOCATION_SOURCE_GPS_RAW 			GPS location given by predefined keys.
+	* MM_MODEM_LOCATION_SOURCE_GPS_NMEA 		GPS location given as NMEA traces.
+	* MM_MODEM_LOCATION_SOURCE_CDMA_BS 			CDMA base station position.
+	* MM_MODEM_LOCATION_SOURCE_GPS_UNMANAGED 	No location given, just GPS module setup. Since 1.4.
+	* MM_MODEM_LOCATION_SOURCE_AGPS_MSA 		Mobile Station Assisted A-GPS location requested. 
+												In MSA A-GPS, the position fix is computed by a server online.
+												The modem must have a valid SIM card inserted and be enabled 
+												for this mode to be allowed. Since 1.12.
+	* MM_MODEM_LOCATION_SOURCE_AGPS_MSB 		Mobile Station Based A-GPS location requested. 
+												In MSB A-GPS, the position fix is computed by the modem, 
+												but it first gathers information from an online server to 
+												facilitate the process (e.g. ephemeris).
+												The modem must have a valid SIM card inserted and be enabled 
+												for this mode to be allowed. Since 1.12. 
+	"""
+    MM_MODEM_LOCATION_SOURCE_NONE = 0
+    MM_MODEM_LOCATION_SOURCE_3GPP_LAC_CI = 1
+    MM_MODEM_LOCATION_SOURCE_GPS_RAW = 2
+    MM_MODEM_LOCATION_SOURCE_GPS_NMEA = 3
+    MM_MODEM_LOCATION_SOURCE_CDMA_BS = 4
+    MM_MODEM_LOCATION_SOURCE_GPS_UNMANAGED = 5
+    MM_MODEM_LOCATION_SOURCE_AGPS_MSA = 6
+    MM_MODEM_LOCATION_SOURCE_AGPS_MSB = 7
