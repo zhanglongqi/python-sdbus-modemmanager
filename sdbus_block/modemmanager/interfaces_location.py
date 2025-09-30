@@ -26,9 +26,9 @@ class MMModemLocationInterface(DbusInterfaceCommon, interface_name='org.freedesk
         raise NotImplementedError
 
     @dbus_property(property_signature='u')
-    def enabled(self) -> dict:
+    def enabled(self) -> int:
         """
-        dict specifying which of the supported MMModemLocationSource location sources are enabled.
+        Bitmask specifying which of the supported MMModemLocationSource location sources are enabled.
         """
         raise NotImplementedError
 
@@ -36,5 +36,12 @@ class MMModemLocationInterface(DbusInterfaceCommon, interface_name='org.freedesk
     def signals_location(self) -> bool:
         """
         True if location updates will be emitted via D-Bus signals, False if location updates will not be emitted.
+        """
+        raise NotImplementedError
+
+    @dbus_property(property_signature='u')
+    def gps_refresh_rate(self) -> int:
+        """
+        Rate of refresh of the GPS information in the interface.
         """
         raise NotImplementedError
