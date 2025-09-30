@@ -233,3 +233,19 @@ class MMModemLocation(MMModemLocationInterface):
     def enabled_list(self) -> List[str]:
         bitmask = super().enabled
         return [src.name for src in MMModemLocationSource if src & bitmask]
+
+    @property
+    def location_dict(self) -> Dict:
+        def build_dict(raw_dict):
+            new_dict = {}
+            for k, v in raw_dict.items():
+                # get the enum name of bit k
+                key = k if isinstance(k, str) else MMModemLocationSource(k).name
+                if isinstance(v, dict):
+                    new_dict[key] = build_dict(v)
+                elif isinstance(v, tuple):
+                    new_dict[key] = v[1]
+            return new_dict
+
+        raw = super().get_location()
+        return build_dict(raw)
