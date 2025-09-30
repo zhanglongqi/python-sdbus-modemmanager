@@ -244,7 +244,8 @@ class MMModemLocation(MMModemLocationInterface):
                 if isinstance(v, dict):
                     new_dict[key] = build_dict(v)
                 elif isinstance(v, tuple):
-                    new_dict[key] = v[1]
+                    val = build_dict(v[1]) if isinstance(v[1], dict) else v[1]
+                    new_dict[key] = val
             return new_dict
 
         raw = super().get_location()
