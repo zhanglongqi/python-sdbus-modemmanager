@@ -235,7 +235,8 @@ class MMModemLocation(MMModemLocationInterface):
         return [src.name for src in MMModemLocationSource if src & bitmask]
 
     @property
-    def location_dict(self) -> Dict:
+    def source_map(self) -> Dict:
+        """Returns dictionary of parsed get_location call, where keys are names of MMModemLocationSource"""
         def build_dict(raw_dict):
             new_dict = {}
             for k, v in raw_dict.items():
