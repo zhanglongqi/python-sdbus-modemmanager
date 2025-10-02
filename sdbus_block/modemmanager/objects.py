@@ -246,22 +246,26 @@ class MMModemLocation(MMModemLocationInterface):
         return [src for src in MMModemLocationSource if src & bitmask]
 
     @property
-    def source_map(self) -> dict[MMModemLocationSource | str, Any]:
+    def source_map(self) -> dict[MMModemLocationSource, Any]:
         """
         Returns dictionary of parsed get_location call, where keys are MMModemLocationSource
         """
         def build_dict(raw_dict):
-            new_dict: dict[MMModemLocationSource | str, Any] = {}
+            new_dict: dict[str, Any] = {}
             for k, v in raw_dict.items():
-                # get the enum corresponding to bit k
-                key: str | MMModemLocationSource = k if isinstance(k, str) else MMModemLocationSource(k)
-                if isinstance(v, dict):
-                    new_dict[key] = build_dict(v)
-                elif isinstance(v, tuple):
-                    tuple_value: Any = v[1]
-                    val: dict[MMModemLocationSource | str, Any] = build_dict(tuple_value) if isinstance(tuple_value, dict) else tuple_value
-                    new_dict[key] = val
+                val = v
+                if isinstance(v, tuple):
+                    val = v[1]
+                new_dict[k] = build_dict(val) if isinstance(val, dict) else val
             return new_dict
 
-        raw = super().get_location()
-        return build_dict(raw)
+        src_map: dict[MMModemLocationSource, Any]= {}
+        for k, v in super().get_location().items():
+            # get the enum corresponding to bit k
+            key = MMModemLocationSource(k)
+            value = v
+            if isinstance(v, tuple):
+                value = v[1]
+            src_map[key] = build_dict(value) if isinstance(value, dict) else value
+
+        return src_map
