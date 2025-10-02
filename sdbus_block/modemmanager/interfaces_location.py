@@ -91,6 +91,12 @@ class MMModemLocationInterface(DbusInterfaceCommon, interface_name='org.freedesk
         """
         Dictionary of available location information when location information gathering is enabled. 
         If the modem supports multiple location types it may return more than one here.
+
+        For security reasons, the location information updates via this property are disabled by default. 
+        Users can use this property to monitor location updates only if the location signals are enabled with Setup(),
+        but considering that enabling the location signals would allow all users to receive property updates as well,
+        not just the process that enabled them. For a finer grained access control, the user can use the GetLocation()
+        method instead, which may require the client to authenticate itself on every call.
         """
         raise NotImplementedError
 
