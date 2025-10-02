@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .enums import MMModemState, MMModemMode, MMModemPowerState, MMCallDirection, MMCallState, MMCallStateReason
+from .enums import MMModemState, MMModemMode, MMModemPowerState, MMCallDirection, MMCallState, MMCallStateReason, MMModemLocationSource, MMModemLocationAssistanceDataType
 from .interfaces_bearer import MMBearerInterface
 from .interfaces_call import MMCallInterface
 from .interfaces_modem import MMModemInterface, MMModemMessagingInterface, MMModemSignalInterface, MMModemsInterface, MMModemVoiceInterface
@@ -21,6 +21,8 @@ __all__ = (
 	'MMCallDirection',
 	'MMCallState',
 	'MMCallStateReason',
+    'MMModemLocationSource',
+    'MMModemLocationAssistanceDataType',
 	# .interfaces_bearer
 	'MMBearerInterface',
 	# .interfaces_call
