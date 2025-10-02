@@ -11,7 +11,7 @@ from .interfaces_3gpp import MMModem3gppInterface
 from .interfaces_simple import MMModemSimpleInterface
 from .interfaces_time import MMModemTimeInterface
 
-from .objects import MM, MMBearer, MMCall, MMModem, MMModems, MMModemMessaging, MMModemSignal, MMModemSimple, MMModemVoice, MMSim, MMSms, MMModem3gpp, MMModemTime
+from .objects import MM, MMBearer, MMCall, MMModem, MMModems, MMModemMessaging, MMModemSignal, MMModemSimple, MMModemVoice, MMSim, MMSms, MMModemLocation, MMModem3gpp, MMModemTime
 
 __all__ = (
 	# .enums
@@ -22,7 +22,7 @@ __all__ = (
 	'MMCallState',
 	'MMCallStateReason',
 	# .interfaces_bearer
-	' MMBearerInterface',
+	'MMBearerInterface',
 	# .interfaces_call
 	'MMCallInterface',
 	# .interfaces_modem
@@ -54,6 +54,7 @@ __all__ = (
 	'MMSms',
 	'MMBearer',
 	'MMCall',
+    'MMModemLocation',
 	'MMModem3gpp',
 	'MMModemTime',
 )
