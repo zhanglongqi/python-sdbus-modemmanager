@@ -273,3 +273,11 @@ class MMModemLocationSource(IntEnum):
     MM_MODEM_LOCATION_SOURCE_GPS_UNMANAGED = 1 << 4
     MM_MODEM_LOCATION_SOURCE_AGPS_MSA = 1 << 5
     MM_MODEM_LOCATION_SOURCE_AGPS_MSB = 1 << 6
+
+class MMModemLocationAssistanceDataType(IntEnum):
+    """Type of assistance data that may be injected to the GNSS module.
+    * MM_MODEM_LOCATION_ASSISTANCE_DATA_TYPE_NONE   None.
+    * MM_MODEM_LOCATION_ASSISTANCE_DATA_TYPE_XTRA   Qualcomm gpsOneXTRA.
+    """
+    MM_MODEM_LOCATION_ASSISTANCE_DATA_TYPE_NONE = 0
+    MM_MODEM_LOCATION_ASSISTANCE_DATA_TYPE_XTRA = 1 << 0
