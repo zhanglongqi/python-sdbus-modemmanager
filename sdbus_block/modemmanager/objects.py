@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 
 from sdbus.sd_bus_internals import SdBus
 
@@ -229,23 +229,37 @@ class MMModemLocation(MMModemLocationInterface):
     def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
         super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 
-    @property
-    def enabled_list(self) -> List[str]:
-        bitmask = super().enabled
-        return [src.name for src in MMModemLocationSource if src & bitmask]
+    def configure(self, sources_to_enable: list[MMModemLocationSource], enable_signaling: bool=False):
+        bitmask = 0
+        for src in sources_to_enable:
+            bitmask |= src
+        super().setup(bitmask, enable_signaling)
 
     @property
-    def source_map(self) -> Dict:
-        """Returns dictionary of parsed get_location call, where keys are names of MMModemLocationSource"""
+    def enabled_list(self) -> List[MMModemLocationSource]:
+        bitmask = super().enabled
+        return [src for src in MMModemLocationSource if src & bitmask]
+    
+    @property
+    def capabilities_list(self) -> List[MMModemLocationSource]:
+        bitmask = super().capabilities
+        return [src for src in MMModemLocationSource if src & bitmask]
+
+    @property
+    def source_map(self) -> dict[MMModemLocationSource | str, Any]:
+        """
+        Returns dictionary of parsed get_location call, where keys are MMModemLocationSource
+        """
         def build_dict(raw_dict):
-            new_dict = {}
+            new_dict: dict[MMModemLocationSource | str, Any] = {}
             for k, v in raw_dict.items():
-                # get the enum name of bit k
-                key = k if isinstance(k, str) else MMModemLocationSource(k).name
+                # get the enum corresponding to bit k
+                key: str | MMModemLocationSource = k if isinstance(k, str) else MMModemLocationSource(k)
                 if isinstance(v, dict):
                     new_dict[key] = build_dict(v)
                 elif isinstance(v, tuple):
-                    val = build_dict(v[1]) if isinstance(v[1], dict) else v[1]
+                    tuple_value: Any = v[1]
+                    val: dict[MMModemLocationSource | str, Any] = build_dict(tuple_value) if isinstance(tuple_value, dict) else tuple_value
                     new_dict[key] = val
             return new_dict
 
