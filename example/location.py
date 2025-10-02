@@ -7,33 +7,15 @@ if __name__ == "__main__":
     modem = MMModems().get_first()
 
     if modem:
-        loc = modem.location
-        print('Supported Location Sources')
-        print('--------------------------')
-        capable_sources = ", ".join(i.name for i in loc.capabilities_list)
-        print(f'\t{capable_sources}')
-        
-        print('')
-        print('Location Sources Enabled')
-        print('------------------------')
-        enabled_sources = ", ".join(i.name for i in loc.enabled_list)
-        print(f'\t{enabled_sources}')
-            
-        print('')
-        print('Signals Location Enabled')
-        print('------------------------')
-        print('(true if location updates will be emitted via D-Bus signals)')
-        print(f'\t{loc.signals_location}')
-        
-        print('GPS Refresh Rate')
-        print('----------------')
-        print(f'\t{loc.gps_refresh_rate} seconds')
-
-        print('Source Map')
-        print('----------')
-        src_map = loc.source_map
-        for k, v in src_map.items():
-            print(f'\t{k.name}: {str(v)}')
-            
+        print('-------------------------')
+        print(f'{modem.location.capabilities=}\n'
+              f'{modem.location.capabilities_list=}\n\n'
+              f'{modem.location.enabled=}\n'
+              f'{modem.location.enabled_list=}\n\n'
+              f'{modem.location.signals_location=}\n'
+              f'{modem.location.gps_refresh_rate=}\n\n'
+              f'{modem.location.location=}\n'
+              f'{modem.location.get_location()=}\n'
+              f'{modem.location.source_map=}\n')
     else:
         print('no modem found')
