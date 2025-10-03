@@ -5,7 +5,7 @@ from sdbus.sd_bus_internals import SdBus
 from .enums import MMCallDirection, MMCallState, MMCallStateReason, MMModemLocationSource
 from .interfaces_bearer import MMBearerInterface
 from .interfaces_call import MMCallInterface
-from .interfaces_modem import MMModemInterface, MMModemMessagingInterface,  MMModemSignalInterface, MMModemsInterface, MMModemVoiceInterface
+from .interfaces_modem import MMModemInterface, MMModemMessagingInterface, MMModemSignalInterface, MMModemsInterface, MMModemVoiceInterface
 from .interfaces_root import MMInterface
 from .interfaces_sim import MMSimInterface
 from .interfaces_sms import MMSmsInterface
@@ -199,58 +199,62 @@ class MMCall(MMCallInterface):
 		"""A MMCallDirection name, describing the direction of the call."""
 		return MMCallDirection(self.direction).name
 
+
 class MMModem3gpp(MMModem3gppInterface):
 
 	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
-        
+
+
 class MMModemTime(MMModemTimeInterface):
 
 	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
 		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 
+
 class MMModemLocation(MMModemLocationInterface):
-    
-    def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
-        super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
-	
-    def configure(self, sources_to_enable: list[MMModemLocationSource], enable_signaling: bool=False):
-        bitmask = 0
-        for src in sources_to_enable:
-            bitmask |= src
-        super().setup(bitmask, enable_signaling)
 
-    @property
-    def enabled_list(self) -> List[MMModemLocationSource]:
-        bitmask = super().enabled
-        return [src for src in MMModemLocationSource if src & bitmask]
-    
-    @property
-    def capabilities_list(self) -> List[MMModemLocationSource]:
-        bitmask = super().capabilities
-        return [src for src in MMModemLocationSource if src & bitmask]
+	def __init__(self, object_path: str, bus: Optional[SdBus] = None) -> None:
+		super().__init__(MODEM_MANAGER_SERVICE_NAME, object_path, bus)
 
-    @property
-    def source_map(self) -> dict[MMModemLocationSource, Any]:
-        """
+	def configure(self, sources_to_enable: list[MMModemLocationSource], enable_signaling: bool = False):
+		bitmask = 0
+		for src in sources_to_enable:
+			bitmask |= src
+		super().setup(bitmask, enable_signaling)
+
+	@property
+	def enabled_list(self) -> List[MMModemLocationSource]:
+		bitmask = super().enabled
+		return [src for src in MMModemLocationSource if src & bitmask]
+
+	@property
+	def capabilities_list(self) -> List[MMModemLocationSource]:
+		bitmask = super().capabilities
+		return [src for src in MMModemLocationSource if src & bitmask]
+
+	@property
+	def source_map(self) -> dict[MMModemLocationSource, Any]:
+		"""
         Returns dictionary of parsed get_location call, where keys are MMModemLocationSource
         """
-        def build_dict(raw_dict):
-            new_dict: dict[str, Any] = {}
-            for k, v in raw_dict.items():
-                val = v
-                if isinstance(v, tuple):
-                    val = v[1]
-                new_dict[k] = build_dict(val) if isinstance(val, dict) else val
-            return new_dict
 
-        src_map: dict[MMModemLocationSource, Any]= {}
-        for k, v in super().get_location().items():
-            # get the enum corresponding to bit k
-            key = MMModemLocationSource(k)
-            value = v
-            if isinstance(v, tuple):
-                value = v[1]
-            src_map[key] = build_dict(value) if isinstance(value, dict) else value
+		def build_dict(raw_dict):
+			new_dict: dict[str, Any] = {}
+			for k, v in raw_dict.items():
+				val = v
+				if isinstance(v, tuple):
+					val = v[1]
+				new_dict[k] = build_dict(val) if isinstance(val, dict) else val
+			return new_dict
 
-        return src_map
+		src_map: dict[MMModemLocationSource, Any] = {}
+		for k, v in super().get_location().items():
+			# get the enum corresponding to bit k
+			key = MMModemLocationSource(k)
+			value = v
+			if isinstance(v, tuple):
+				value = v[1]
+			src_map[key] = build_dict(value) if isinstance(value, dict) else value
+
+		return src_map

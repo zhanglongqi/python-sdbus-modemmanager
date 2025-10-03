@@ -246,8 +246,9 @@ class MMModemCapability(IntEnum):
 			names.append(MMModemCapability.MM_MODEM_CAPABILITY_ANY.name)
 		return names
 
+
 class MMModemLocationSource(IntEnum):
-    """Sources of location information supported by the modem.
+	"""Sources of location information supported by the modem.
    	* MM_MODEM_LOCATION_SOURCE_NONE 			None.
 	* MM_MODEM_LOCATION_SOURCE_3GPP_LAC_CI 		Location Area Code and Cell ID.
 	* MM_MODEM_LOCATION_SOURCE_GPS_RAW 			GPS location given by predefined keys.
@@ -265,19 +266,20 @@ class MMModemLocationSource(IntEnum):
 												The modem must have a valid SIM card inserted and be enabled 
 												for this mode to be allowed. Since 1.12. 
 	"""
-    MM_MODEM_LOCATION_SOURCE_NONE = 0
-    MM_MODEM_LOCATION_SOURCE_3GPP_LAC_CI = 1 << 0
-    MM_MODEM_LOCATION_SOURCE_GPS_RAW = 1 << 1
-    MM_MODEM_LOCATION_SOURCE_GPS_NMEA = 1 << 2
-    MM_MODEM_LOCATION_SOURCE_CDMA_BS = 1 << 3
-    MM_MODEM_LOCATION_SOURCE_GPS_UNMANAGED = 1 << 4
-    MM_MODEM_LOCATION_SOURCE_AGPS_MSA = 1 << 5
-    MM_MODEM_LOCATION_SOURCE_AGPS_MSB = 1 << 6
+	MM_MODEM_LOCATION_SOURCE_NONE = 0
+	MM_MODEM_LOCATION_SOURCE_3GPP_LAC_CI = 1 << 0
+	MM_MODEM_LOCATION_SOURCE_GPS_RAW = 1 << 1
+	MM_MODEM_LOCATION_SOURCE_GPS_NMEA = 1 << 2
+	MM_MODEM_LOCATION_SOURCE_CDMA_BS = 1 << 3
+	MM_MODEM_LOCATION_SOURCE_GPS_UNMANAGED = 1 << 4
+	MM_MODEM_LOCATION_SOURCE_AGPS_MSA = 1 << 5
+	MM_MODEM_LOCATION_SOURCE_AGPS_MSB = 1 << 6
+
 
 class MMModemLocationAssistanceDataType(IntEnum):
-    """Type of assistance data that may be injected to the GNSS module.
+	"""Type of assistance data that may be injected to the GNSS module.
     * MM_MODEM_LOCATION_ASSISTANCE_DATA_TYPE_NONE   None.
     * MM_MODEM_LOCATION_ASSISTANCE_DATA_TYPE_XTRA   Qualcomm gpsOneXTRA.
     """
-    MM_MODEM_LOCATION_ASSISTANCE_DATA_TYPE_NONE = 0
-    MM_MODEM_LOCATION_ASSISTANCE_DATA_TYPE_XTRA = 1 << 0
+	MM_MODEM_LOCATION_ASSISTANCE_DATA_TYPE_NONE = 0
+	MM_MODEM_LOCATION_ASSISTANCE_DATA_TYPE_XTRA = 1 << 0

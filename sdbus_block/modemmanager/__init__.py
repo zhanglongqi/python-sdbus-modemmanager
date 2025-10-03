@@ -21,8 +21,8 @@ __all__ = (
 	'MMCallDirection',
 	'MMCallState',
 	'MMCallStateReason',
-    'MMModemLocationSource',
-    'MMModemLocationAssistanceDataType',
+	'MMModemLocationSource',
+	'MMModemLocationAssistanceDataType',
 	# .interfaces_bearer
 	'MMBearerInterface',
 	# .interfaces_call
@@ -56,7 +56,7 @@ __all__ = (
 	'MMSms',
 	'MMBearer',
 	'MMCall',
-    'MMModemLocation',
+	'MMModemLocation',
 	'MMModem3gpp',
 	'MMModemTime',
 )
