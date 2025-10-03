@@ -18,3 +18,11 @@ See [python-sdbus requirements](https://github.com/igo95862/python-sdbus#require
 This is the sub-project of [python-sdbus](https://github.com/igo95862/python-sdbus).
 
 See the [python-sdbus documentation](https://python-sdbus.readthedocs.io/en/latest/).
+
+## Format
+
+Use YAPF in command line:
+
+```
+yapf --style="{use_tabs: true, indent_width: 4, column_limit:180, continuation_align_style: 'valign-right'}" --in-place <filename.py>
+```
