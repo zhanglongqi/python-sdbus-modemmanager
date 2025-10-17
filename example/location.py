@@ -1,5 +1,9 @@
 import sdbus
 from sdbus_block.modemmanager import MMModems
+'''
+to get modem.location.location working, you may need to enable location signals first:
+sudo mmcli -m 0 --location-set-enable-signal
+'''
 
 if __name__ == "__main__":
 
