@@ -23,7 +23,7 @@ if __name__ == "__main__":
 				f'{modem.current_capabilities=}\n'
 				f'{modem.current_capabilities_text=}\n')
 
-		if modem.sim_object_path is not None:
+		if modem.sim_object_path is not None and modem.sim_object_path != '/':
 			modem.set_sim(modem.sim_object_path)
 			if modem.sim:
 				print('-------------------------')
