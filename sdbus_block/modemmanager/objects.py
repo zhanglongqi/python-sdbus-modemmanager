@@ -65,7 +65,7 @@ class MMModemMessaging(MMModemMessagingInterface):
 
 	def delete_sms(self, sms: MMSms) -> None:
 		"""Delete an SMS message."""
-		self.delete(sms._sdbus.object_path)
+		self.delete(sms._dbus.object_path)
 
 
 class MMModemSignal(MMModemSignalInterface):
