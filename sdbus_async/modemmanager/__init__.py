@@ -18,7 +18,7 @@ __all__ = (
 	'MMCallState',
 	'MMCallStateReason',
 	# .interfaces_bearer
-	' MMBearerInterfaceAsync',
+	'MMBearerInterfaceAsync',
 	# .interfaces_call
 	'MMCallInterfaceAsync',
 	# .interfaces_modem

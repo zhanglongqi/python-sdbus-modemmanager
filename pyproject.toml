@@ -1,6 +1,6 @@
 [project]
 name = "sdbus-modemmanager"
-version = "1.0.2"
+version = "1.0.3"
 description = "ModemManager binds for sdbus."
 authors = [
     {name = "longqi",email = "longqi90@gmail.com"}
@@ -40,3 +40,6 @@ build-backend = "poetry.core.masonry.api"
 use_tabs = true
 column_limit = 180
 continuation_align_style = "valign-right"
+
+[tool.isort]
+line_length = 180
