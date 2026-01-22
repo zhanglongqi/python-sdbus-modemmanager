@@ -1,4 +1,4 @@
-from sdbus_block.modemmanager import MM, MMModems
+from sdbus_block.modemmanager import MM, MMModems, MMBearer
 
 if __name__ == "__main__":
 	import sdbus
@@ -33,6 +33,13 @@ if __name__ == "__main__":
 						f'{modem.sim.operator_identifier=}\n')
 			else:
 				print(f'failed to get sim object {modem.sim_object_path=}')
+
+			bearer = MMBearer(modem.bearer_object_paths[0])
+			if bearer:
+				print('-------------------------')
+				print(f'{bearer.stats=}\n'
+						f'{bearer.connected=}\n'
+						f'{bearer.ip4_config=}\n')
 		else:
 			print('no sim card found')
 		if len(modem.bearer_object_paths) > 0:
