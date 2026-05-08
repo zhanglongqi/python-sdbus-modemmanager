@@ -27,8 +27,8 @@ classifiers = [
 
 [tool.poetry]
 packages = [
-    { include = "modemmanager", from="sdbus_async", to="sdbus_async/modemmanager" },
-    { include = "modemmanager", from="sdbus_block", to="sdbus_block/modemmanager" },
+    { include = "modemmanager", from="sdbus_async", to="sdbus_async" },
+    { include = "modemmanager", from="sdbus_block", to="sdbus_block" },
 ]
 
 [build-system]
