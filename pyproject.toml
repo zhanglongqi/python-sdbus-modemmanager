@@ -1,6 +1,6 @@
 [project]
 name = "sdbus-modemmanager"
-version = "1.0.4"
+version = "1.0.5"
 description = "ModemManager binds for sdbus."
 authors = [{ name = "longqi", email = "longqi90@gmail.com" }]
 license = "LGPL-2.1-or-later"
