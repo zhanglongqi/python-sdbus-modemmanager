@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.0.4
+
+### Fixed
+
+#### Packaging
+- Corrected Poetry package install paths so the `sdbus_async.modemmanager` and `sdbus_block.modemmanager` modules are included correctly in built distributions (PR #25)
+- Contributor: Romain Naour (@RomainNaour)
+
+### Changed
+
+#### Example Improvements
+- Updated `example/list_modem_sim.py` to import `MMBearer`
+- Added bearer statistics and IPv4 configuration output to the modem listing example
+
 ## 1.0.3
 
 ### Added

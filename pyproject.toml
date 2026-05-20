@@ -1,25 +1,17 @@
 [project]
 name = "sdbus-modemmanager"
-version = "1.0.3"
+version = "1.0.4"
 description = "ModemManager binds for sdbus."
-authors = [
-    {name = "longqi",email = "longqi90@gmail.com"}
-]
-license = {text = "LGPL-2.1-or-later"}
+authors = [{ name = "longqi", email = "longqi90@gmail.com" }]
+license = "LGPL-2.1-or-later"
+license-files = ["COPYING.LESSER"]
 readme = "README.md"
 requires-python = ">=3.7,<4.0"
-dependencies = [
-    "sdbus>=0.8rc2"
-]
-keywords = [
-    "sdbus",
-    "modemmanager",
-    "dbus"
-]
+dependencies = ["sdbus>=0.8rc2"]
+keywords = ["sdbus", "modemmanager", "dbus"]
 classifiers = [
     'Development Status :: 5 - Production/Stable',
     'Intended Audience :: Developers',
-    'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)',
     'Operating System :: POSIX :: Linux',
     'Programming Language :: Python :: 3 :: Only',
     'Topic :: Software Development :: Libraries :: Python Modules',
@@ -27,8 +19,8 @@ classifiers = [
 
 [tool.poetry]
 packages = [
-    { include = "modemmanager", from="sdbus_async", to="sdbus_async" },
-    { include = "modemmanager", from="sdbus_block", to="sdbus_block" },
+    { include = "modemmanager", from = "sdbus_async", to = "sdbus_async" },
+    { include = "modemmanager", from = "sdbus_block", to = "sdbus_block" },
 ]
 
 [build-system]
@@ -43,3 +35,10 @@ continuation_align_style = "valign-right"
 
 [tool.isort]
 line_length = 180
+
+[dependency-groups]
+dev = [
+    "ipython (>=7.34,<8.0)",
+    "yapf (>=0.40,<0.44)",
+    "pytest (>=7.4,<8.0)"
+]
